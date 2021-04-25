@@ -3,10 +3,11 @@ module.exports = {
     env: {
         node: true
     },
+    "plugins": ["import", "promise"],
     "extends": [
-        "plugin:vue/vue3-essential",
         "eslint:recommended",
-        "plugin:vue/recommended"
+        "plugin:vue/recommended",
+        "plugin:vue/vue3-essential"
     ],
     parserOptions: {
         ecmaVersion: 2020
@@ -121,8 +122,7 @@ module.exports = {
     overrides: [
         {
             files: [
-                "./src/components/SlideUnlock.vue",
-                "./dist/*"
+                "./src/components/SlideUnlock.vue"
             ],
             rules: {
                 "max-len": 0
