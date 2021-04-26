@@ -122,6 +122,7 @@ module.exports = {
     overrides: [
         {
             files: [
+                "./src/App.vue",
                 "./src/components/SlideUnlock.vue"
             ],
             rules: {

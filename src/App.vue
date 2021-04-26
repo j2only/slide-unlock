@@ -1,12 +1,40 @@
 <template>
-    <div class="content">
-        <section class="head">
-            <h1>Vue.js slide to unlock</h1>
-            <h2>This is a vue component, this is used to protect users from accidental clicks.</h2>
-        </section>
+    <div>
+        <nav>
+            <div class="container">
+                <div>
+                    <img alt="Vue logo" src="@/assets/logo.png">
+                    <h4>vue-slide-unlock</h4>
+                </div>
+                <div>
+                    <a class="nav-item" href="https://github.com/joseph2/vue-slide-unlock" title="Github" target="_blank">
+                        Documentation
+                    </a>
+                    <a class="nav-item" href="https://github.com/joseph2" title="Github" target="_blank">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 16 16">
+                                <path d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="container is-content">
+            <section class="head">
+                <img class="logo" alt="Vue logo" src="./assets/logo.png">
 
-        <section class="demo-section">
-            <div class="column">
+                <h1>Vue.js slide to unlock component</h1>
+                <div class="description">
+                    <b>Protect users from accidental clicks for Vue 3.x</b>
+                </div>
+
+                <div class="install">
+                    npm install --save vue-slide-unlock
+                </div>
+            </section>
+
+            <section class="demo-section">
                 <slide-unlock
                     :auto-width="getAutoWidth"
                     :width="width"
@@ -17,97 +45,95 @@
                     :success-icon="successIcon"
                     :circle="getShape"
                 />
-            </div>
+            </section>
 
-            <div class="column">
-                <table>
-                    <tr>
-                        <td>Auto width</td>
-                        <td>
-                            <select v-model="autoWidth">
-                                <option>true</option>
-                                <option>false</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Circle handler</td>
-                        <td>
-                            <select v-model="isCircle">
-                                <option>true</option>
-                                <option>false</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Width (px)</td>
-                        <td>
-                            <input v-model="width" type="number" :disabled="autoWidth === 'true'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Height (px)</td>
-                        <td>
-                            <input v-model="height" type="number">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Text</td>
-                        <td>
-                            <input v-model="text" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Success text</td>
-                        <td>
-                            <input v-model="successText" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Text size</td>
-                        <td>
-                            <input v-model="textSize" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Text color</td>
-                        <td>
-                            <input v-model="textColor" type="color">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Text completed color</td>
-                        <td>
-                            <input v-model="textCompleteColor" type="color">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Bg color</td>
-                        <td>
-                            <input v-model="background" type="color">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Progressbar normal bg color</td>
-                        <td>
-                            <input v-model="progressBarBg" type="color">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Progressbar completed bg color</td>
-                        <td>
-                            <input v-model="completedBg" type="color">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Handler bg color</td>
-                        <td>
-                            <input v-model="handlerBg" type="color">
-                        </td>
-                    </tr>
-                </table>
+            <section class="props-section">
+                <h2>Options (props)</h2>
+
+                <div class="grid">
+                    <div class="item">
+                        <label for="autoWidth">
+                            <input
+                                id="autoWidth"
+                                v-model="autoWidth"
+                                type="checkbox"
+                                true-value="true"
+                                false-value="false"
+                            >
+                            autoWidth
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label for="autoWidth">
+                            <input
+                                id="isCircle"
+                                v-model="isCircle"
+                                type="checkbox"
+                                true-value="true"
+                                false-value="false"
+                            >
+                            isCircle
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label>width (px)</label>
+                        <input v-model="width" type="number" :disabled="autoWidth === 'true'">
+                    </div>
+                    <div class="item">
+                        <label>height (px)</label>
+                        <input v-model="height" type="number">
+                    </div>
+                    <div class="item">
+                        <label>text</label>
+                        <input v-model="text" type="text">
+                    </div>
+                    <div class="item">
+                        <label>successText</label>
+                        <input v-model="successText" type="text">
+                    </div>
+                    <div class="item">
+                        <label>textSize</label>
+                        <input v-model="textSize" type="text">
+                    </div>
+                </div>
+            </section>
+            <section class="colors-section">
+                <h2>Colors (CSS Variables)</h2>
+
+                <div class="grid">
+                    <div class="item">
+                        <label>textColor</label>
+                        <input v-model="textColor" type="color">
+                    </div>
+                    <div class="item">
+                        <label>textCompleteColor</label>
+                        <input v-model="textCompleteColor" type="color">
+                    </div>
+                    <div class="item">
+                        <label>background</label>
+                        <input v-model="background" type="color">
+                    </div>
+                    <div class="item">
+                        <label>progressBarBg</label>
+                        <input v-model="progressBarBg" type="color">
+                    </div>
+                    <div class="item">
+                        <label>completedBg</label>
+                        <input v-model="completedBg" type="color">
+                    </div>
+                    <div class="item">
+                        <label>handlerBg</label>
+                        <input v-model="handlerBg" type="color">
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <div class="container">
+                <div> &copy; 2021 Anton Zolotov </div>
+                <a href="https://github.com/joseph2">github.com</a>
             </div>
-        </section>
+        </footer>
     </div>
 </template>
 
@@ -215,46 +241,210 @@ export default {
 </script>
 
 <style lang="scss">
+
+:root {
+    --color-bg: #fefefe;
+    --color-lightestgray:#f7f7f7;
+    --color-lightgray:#eaeaea;
+    --color-mediumgray:#c1c6c7;
+    --color-gray:#8f989a;
+    --color-text:#5a6265;
+    --color-theme: #42b983;
+}
+
+html,
+body,
 #app {
-    font-family: blinkmacsystemfont, -apple-system,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    color: #2c3e50;
+    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    margin-top: 2.5rem;
+    text-rendering: optimizeLegibility;
 }
-.content {
-    margin: 2rem auto 0;
-    max-width: 60rem;
-}
-.head {
-    margin-bottom: 2rem;
-    text-align: center;
-    h1 {
-        font-weight: bold;
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
+.container {
+    width: 60rem;
+    max-width: 96%;
+    margin: 0 auto;
+    &.is-content {
+        width: 35rem;
     }
+}
+
+a {
+    line-height: inherit;
+    transition: color .2s ease, border-bottom-color .2s ease;
+    border: none;
+    font-family: inherit;
+    color: var(--color-theme);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h4 {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    font-style: normal;
+    color: inherit;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -1px;
+}
+
+h1 {
+    font-size: 1.75rem;
+}
+
+h2 {
+    font-size: 1.125rem;
+}
+
+section {
+    margin-bottom: 1rem;
+    h1,
     h2 {
-        font-weight: normal;
-        font-size: 1.25rem;
-        margin-top: 0;
+        text-align: center;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+    .item {
+        max-width: 100%;
+         overflow: hidden;
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+        input {
+            box-sizing: border-box;
+        }
+        input[type=text],
+        input[type=color],
+        input[type=number] {
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-lightgray);
+            border-radius: 0.25rem;
+            color: var(--color-gray);
+            cursor: text;
+            display: block;
+            font-size: 0.75rem;
+            height: 2rem;
+            line-height: 0.75rem;
+            max-width: 100%;
+            min-width: 100%;
+            padding: 0.125rem 0.5rem;
+            position: relative;
+            transition: all 0.2s;
+            width: 100%;
+            &:hover {
+                border-color: var(--color-mediumgray);
+            }
+            &:focus,
+            &.focus {
+                border-color: var(--color-theme);
+                outline: none;
+            }
+        }
+        input[type=color] {
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+
+nav,
+footer {
+    background-color: var(--color-bg);
+    width: 100%;
+}
+
+nav {
+    border-bottom: 1px solid var(--color-lightgray);
+    height: 50px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > div {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    h4 {
+        line-height: 50px;
+        font-size: 1rem;
+        margin: 0;
+    }
+    img {
+        width: 24px;
+        height: auto;
+        margin-right: 0.5rem;
+    }
+
+    .nav-item {
+        color: var(--color-gray);
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 1rem;
+        transition: all .3s ease;
+        &:hover{
+            color: var(--color-theme);
+        }
+    }
+
+    .nav-icon {
+        fill: var(--color-gray);
+        height: auto;
+        margin-top: 4px;
+        transition: all .3s ease;
+        width: 20px;
+        &:hover{
+            fill: var(--color-theme);
+        }
+    }
+}
+
+footer {
+    border-top: 1px solid var(--color-lightgray);
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1rem 0;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    a {
+        font-size: 0.75rem;
+    }
+}
+
+.head {
+    text-align: center;
+    .logo {
+        width: 3rem;
+        height: auto;
+    }
+    .description {
+        margin-bottom: 1rem;
+    }
+    .install {
+        background-color: var(--color-lightestgray);
+        padding: 1rem;
     }
 }
 .demo-section {
-    display: flex;
-    .column {
-        float: left;
-        width: 50%;
-    }
-    @media only screen and (max-width: 767px) {
-        flex-direction: column;
-        .column {
-            float: none;
-            width: 100%;
-            &:first-child {
-                margin-bottom: 2rem;
-            }
-        }
-    }
+    margin: 4rem 0;
 }
 table {
     display: block;
@@ -273,7 +463,7 @@ table {
             margin: 0;
             outline: none;
             padding: 0.325rem;
-            border: 1px solid #cacaca;
+            border: 1px solid var(--color-lightgray);
             border-radius: 0.25rem;
             float:left;
         }

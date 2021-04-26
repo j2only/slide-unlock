@@ -183,7 +183,7 @@ export default defineComponent({
         --su-color-bg:#ebebeb;
         --su-color-handler-bg:#FFFFFF;
         --su-color-progress-normal-bg:#cacaca;
-        --su-color-progress-complete-bg:#37A463;
+        --su-color-progress-complete-bg:#42b983;
         --su-color-text-normal:#4F4F4F;
         --su-color-text-complete:#FEFEFE;
         --su-size-text:24px;
@@ -220,7 +220,7 @@ export default defineComponent({
             animation: animated 2s linear infinite;
             background-clip: text;
             background-color: var(--su-color-text-normal);
-            background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), var(--su-color-handler-bg), rgba(255, 255, 255, 0));
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), var(--su-color-handler-bg), rgba(255, 255, 255, 0));
             background-repeat: no-repeat;
             color: transparent;
             transition: all 1s ease;
