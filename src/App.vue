@@ -140,7 +140,6 @@
 <script>
 // import SlideUnlock from "@/components/SlideUnlock"
 import SlideUnlock from "../dist/vue-slide-unlock.common.js"
-import "../dist/vue-slide-unlock.css"
 
 export default {
     name: "App",
