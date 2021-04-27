@@ -159,9 +159,8 @@ export default defineComponent({
     },
     methods: {
         fadeText: debounce(function() {
-            const Percent = Math.floor((this.HandlerPosition / (this.sliderWidth - this.height)) * 100)
-            const ReversePercent = Math.floor((1 / Percent) * 100)
-            this.Text.opacity = ReversePercent / 20
+            const ReversePercent = ((this.sliderWidth - this.height) * (100 / this.HandlerPosition)) / 1000 - 0.1
+            this.Text.opacity = ReversePercent
         }, 5),
         slideStart(e) {
             const THIS = this
@@ -203,7 +202,7 @@ export default defineComponent({
                     ease({
                         startValue: this.HandlerPosition,
                         endValue: 0,
-                        durationMs: 300,
+                        durationMs: 200,
                         onStep: value => {
                             this.Handler.left = value + "px"
                             this.Progress.width = value + (this.height / 2) + "px"
@@ -218,7 +217,16 @@ export default defineComponent({
         passVerify() {
             this.IsComplete = true
             this.CanMove = false
-            this.$emit("passcallback")
+            this.$emit("completed")
+        },
+        reset() {
+            this.CanMove = false,
+            this.IsComplete = false,
+            this.StartPositionWindow = 0,
+            this.HandlerPosition = 0,
+            this.Handler.left = 0,
+            this.Progress.width = 0,
+            this.Text.opacity = 1
         }
     }
 })
@@ -273,7 +281,7 @@ export default defineComponent({
             z-index: 1;
             width: 0;
             height: 34px;
-            transition: background 1s ease;
+            transition: background 1s ease-out;
             background-color: var(--su-color-progress-normal-bg);
         }
         .slideunlock-text {
@@ -308,6 +316,7 @@ export default defineComponent({
             cursor: grab;
             &:active {
                 transform: scale(1.05);
+                cursor: grabbing;
             }
             i {
                 color: var(--color-text);

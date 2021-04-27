@@ -1,5 +1,7 @@
 # vue-slide-unlock
 
+[![CodeFactor](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/badge/main)](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/overview/main) ![npm](https://img.shields.io/npm/v/vue-slide-unlock.svg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue-slide-unlock) [![Dependecy Status](https://david-dm.org/joseph2/vue-slide-unlock.svg)](https://david-dm.org/joseph2/vue-slide-unlock) [![devDependencies Status](https://david-dm.org/joseph2/vue-slide-unlock/dev-status.svg)](https://david-dm.org/joseph2/vue-slide-unlock?type=dev)
+
 Vue.js 3.x slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.
 
 You can check a [DEMO HERE](https://joseph2.github.io/vue-slide-unlock/)
@@ -19,14 +21,16 @@ Import the component in your app and pass some settings:
 ```javascript
 <template>
     <slide-unlock
+        ref="vueslideunlock"
         :auto-width="true"
         :circle="true"
         :disabled="false"
         :noanimate="false"
-        width="400"
-        height="60"
+        :width="400"
+        :height="60"
         text="slide to unlock"
         success-text="success"
+        @completed="complete()"
     />
 </template>
 
@@ -69,6 +73,28 @@ Also, you can customize some styles via CSS Variables:
 
 ## Event
 
-### passcallback
+```javascript
+this.$emit("completed")
+```
 
 Emitted when pass verify, the handler swiped to the right side.
+
+## Reset state
+
+If you want to reset the state of a component, you need to assign a ref to the component
+
+```javascript
+<template>
+    <slide-unlock ref="vueslideunlock" />
+</template>
+```
+
+And then you need to call the reset method
+
+```javascript
+ methods: {
+    reset() {
+        this.$refs.vueslideunlock.reset()
+    }
+}
+```

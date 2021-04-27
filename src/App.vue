@@ -28,14 +28,11 @@
                 <div class="description">
                     <b>Protect users from accidental clicks for Vue 3.x</b>
                 </div>
-
-                <div class="install">
-                    npm install --save vue-slide-unlock
-                </div>
             </section>
 
             <section class="demo-section">
                 <slide-unlock
+                    ref="vueslideunlock"
                     :auto-width="getAutoWidth"
                     :circle="getShape"
                     :disabled="getDisabled"
@@ -46,6 +43,7 @@
                     :success-text="successText"
                     :handler-icon="handlerIcon"
                     :success-icon="successIcon"
+                    @completed="complete()"
                 />
             </section>
 
@@ -164,6 +162,13 @@
                         <input v-model="handlerBg" type="color">
                     </div>
                 </div>
+            </section>
+
+            <section class="actions-section">
+                <h2>Actions</h2>
+                <button class="btn" @click="resetComponent()">
+                    Reset state
+                </button>
             </section>
         </div>
         <footer>
@@ -291,6 +296,14 @@ export default {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete")
             }
         }
+    },
+    methods: {
+        complete() {
+            alert("Unlocked!")
+        },
+        resetComponent() {
+            this.$refs.vueslideunlock.reset()
+        }
     }
 }
 </script>
@@ -356,6 +369,28 @@ section {
         text-align: center;
     }
 }
+
+.btn {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-text);
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.25rem;
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    &:hover {
+        background-color: var(--color-lightestgray);
+        border-color: var(--color-theme);
+        color: var(--color-theme);
+        cursor: pointer;
+    }
+    &:active {
+        background-color: var(--color-theme);
+        color: var(--color-bg);
+    }
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -386,7 +421,7 @@ section {
             max-width: 100%;
             height: 2rem;
             padding: 0.125rem 0.5rem;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             border: 1px solid var(--color-lightgray);
             border-radius: 0.25rem;
             background-color: var(--color-bg);
@@ -490,12 +525,11 @@ footer {
     .description {
         margin-bottom: 1rem;
     }
-    .install {
-        padding: 1rem;
-        background-color: var(--color-lightestgray);
-    }
 }
 .demo-section {
     margin: 4rem 0;
+}
+.actions-section {
+    text-align: center;
 }
 </style>
