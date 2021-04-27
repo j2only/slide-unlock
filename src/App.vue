@@ -177,7 +177,7 @@
 
 <script>
 // import SlideUnlock from "@/components/SlideUnlock"
-import SlideUnlock from "../dist/vue-slide-unlock.common.js"
+import SlideUnlock from "../dist/vue-slide-unlock.umd.min.js"
 
 export default {
     name: "App",

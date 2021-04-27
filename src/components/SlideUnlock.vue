@@ -215,14 +215,14 @@ export default defineComponent({
 
 <style lang="scss">
     :root {
+        --su-size-text:24px;
+        --su-size-padding:6px;
         --su-color-bg:#ebebeb;
-        --su-color-handler-bg:#FFFFFF;
         --su-color-progress-normal-bg:#cacaca;
         --su-color-progress-complete-bg:#42b983;
         --su-color-text-normal:#4F4F4F;
         --su-color-text-complete:#FEFEFE;
-        --su-size-text:24px;
-        --su-size-padding:6px;
+        --su-color-handler-bg:#FFFFFF;
     }
     @keyframes animated {
         from {
