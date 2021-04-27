@@ -4,6 +4,8 @@
 
 Vue.js 3.x slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.
 
+![Preview](preview.gif)
+
 You can check a [DEMO HERE](https://joseph2.github.io/vue-slide-unlock/)
 
 ## Installation

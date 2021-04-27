@@ -43,7 +43,6 @@
                     :success-text="successText"
                     :handler-icon="handlerIcon"
                     :success-icon="successIcon"
-                    @completed="complete()"
                 />
             </section>
 
@@ -298,9 +297,6 @@ export default {
         }
     },
     methods: {
-        complete() {
-            alert("Unlocked!")
-        },
         resetComponent() {
             this.$refs.vueslideunlock.reset()
         }
