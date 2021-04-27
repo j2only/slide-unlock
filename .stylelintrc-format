@@ -1,0 +1,50 @@
+{
+    extends: [
+        "stylelint-config-standard",
+        "stylelint-config-property-sort-order-smacss"
+    ],
+    plugins: [
+        "stylelint-scss",
+        "stylelint-order"
+    ],
+    rules: {
+        indentation: 4,
+        "rule-empty-line-before": "never",
+        "at-rule-empty-line-before": "never",
+        "at-rule-no-unknown": null,
+        "color-hex-case": "upper",
+        "no-descending-specificity": null,
+        "selector-type-no-unknown": [
+            true,
+            {
+                "ignore": [
+                "custom-elements"
+                ]
+            }
+        ],
+        "scss/selector-no-redundant-nesting-selector": true,
+        "order/order": [
+            "declarations",
+            {
+                "type": "at-rule",
+                "name": "media"
+            },
+            {
+                "type": "rule",
+                "selector": "^&::(before|after)"
+            },
+            {
+                "type": "rule",
+                "selector": "^&:\\w"
+            },
+            {
+                "type": "rule",
+                "selector": "^&_"
+            },
+            {
+                "type": "rule",
+                "selector": "^."
+            }
+        ],
+    }
+}

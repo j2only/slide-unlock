@@ -298,22 +298,21 @@ export default {
 <style lang="scss">
 
 :root {
-    --color-bg: #fefefe;
-    --color-lightestgray:#f7f7f7;
-    --color-lightgray:#eaeaea;
-    --color-mediumgray:#c1c6c7;
-    --color-gray:#8f989a;
-    --color-text:#5a6265;
-    --color-theme: #42b983;
+    --color-bg: #FEFEFE;
+    --color-lightestgray: #F7F7F7;
+    --color-lightgray: #EAEAEA;
+    --color-mediumgray: #C1C6C7;
+    --color-gray: #8F989A;
+    --color-text: #5A6265;
+    --color-theme: #42B983;
 }
-
 html,
 body,
 #app {
-    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+    margin-top: 2.5rem;
     background-color: var(--color-bg);
     color: var(--color-text);
-    margin-top: 2.5rem;
+    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
 }
 .container {
@@ -324,37 +323,32 @@ body,
         width: 35rem;
     }
 }
-
 a {
-    line-height: inherit;
-    transition: color .2s ease, border-bottom-color .2s ease;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
     border: none;
-    font-family: inherit;
     color: var(--color-theme);
+    font-family: inherit;
+    line-height: inherit;
     text-decoration: none;
     cursor: pointer;
 }
-
 h1,
 h2,
 h4 {
     margin: 0;
     margin-bottom: 0.5rem;
-    font-weight: 800;
-    font-style: normal;
     color: inherit;
-    text-rendering: optimizeLegibility;
+    font-style: normal;
+    font-weight: 800;
     letter-spacing: -1px;
+    text-rendering: optimizeLegibility;
 }
-
 h1 {
     font-size: 1.75rem;
 }
-
 h2 {
     font-size: 1.125rem;
 }
-
 section {
     margin-bottom: 1rem;
     h1,
@@ -362,7 +356,6 @@ section {
         text-align: center;
     }
 }
-
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -374,7 +367,7 @@ section {
     }
     .item {
         max-width: 100%;
-         overflow: hidden;
+        overflow: hidden;
         label {
             display: block;
             margin-bottom: 0.25rem;
@@ -386,21 +379,21 @@ section {
         input[type=text],
         input[type=color],
         input[type=number] {
-            background-color: var(--color-bg);
+            display: block;
+            position: relative;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            height: 2rem;
+            padding: 0.125rem 0.5rem;
+            transition: all 0.2s;
             border: 1px solid var(--color-lightgray);
             border-radius: 0.25rem;
+            background-color: var(--color-bg);
             color: var(--color-gray);
-            cursor: text;
-            display: block;
             font-size: 0.75rem;
-            height: 2rem;
             line-height: 0.75rem;
-            max-width: 100%;
-            min-width: 100%;
-            padding: 0.125rem 0.5rem;
-            position: relative;
-            transition: all 0.2s;
-            width: 100%;
+            cursor: text;
             &:hover {
                 border-color: var(--color-mediumgray);
             }
@@ -410,8 +403,8 @@ section {
                 outline: none;
             }
             &:disabled {
-                background-color: var(--color-lightestgray);
                 opacity: 1;
+                background-color: var(--color-lightestgray);
                 cursor: not-allowed;
                 &:hover {
                     border-color: var(--color-lightgray);
@@ -425,21 +418,18 @@ section {
         }
     }
 }
-
 nav,
 footer {
-    background-color: var(--color-bg);
     width: 100%;
+    background-color: var(--color-bg);
 }
-
 nav {
-    border-bottom: 1px solid var(--color-lightgray);
-    height: 50px;
-    left: 0;
     position: fixed;
-    top: 0;
     z-index: 5;
-
+    top: 0;
+    left: 0;
+    height: 50px;
+    border-bottom: 1px solid var(--color-lightgray);
     .container {
         display: flex;
         align-items: center;
@@ -449,53 +439,48 @@ nav {
             align-items: center;
         }
     }
-
     h4 {
-        line-height: 50px;
-        font-size: 1rem;
         margin: 0;
+        font-size: 1rem;
+        line-height: 50px;
     }
     img {
         width: 24px;
         height: auto;
         margin-right: 0.5rem;
     }
-
     .nav-item {
+        margin-left: 1rem;
+        transition: all 0.3s ease;
         color: var(--color-gray);
         font-size: 12px;
         font-weight: bold;
-        margin-left: 1rem;
-        transition: all .3s ease;
-        &:hover{
+        &:hover {
             color: var(--color-theme);
         }
     }
-
     .nav-icon {
-        fill: var(--color-gray);
+        width: 20px;
         height: auto;
         margin-top: 4px;
-        transition: all .3s ease;
-        width: 20px;
-        &:hover{
+        transition: all 0.3s ease;
+        fill: var(--color-gray);
+        &:hover {
             fill: var(--color-theme);
         }
     }
 }
-
 footer {
-    border-top: 1px solid var(--color-lightgray);
-    text-align: center;
     margin-top: 1rem;
     padding: 1rem 0;
+    border-top: 1px solid var(--color-lightgray);
     font-size: 0.875rem;
     line-height: 1.25;
+    text-align: center;
     a {
         font-size: 0.75rem;
     }
 }
-
 .head {
     text-align: center;
     .logo {
@@ -506,8 +491,8 @@ footer {
         margin-bottom: 1rem;
     }
     .install {
-        background-color: var(--color-lightestgray);
         padding: 1rem;
+        background-color: var(--color-lightestgray);
     }
 }
 .demo-section {
