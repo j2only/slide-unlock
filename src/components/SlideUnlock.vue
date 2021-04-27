@@ -2,6 +2,12 @@
     <div
         ref="slider"
         class="slideunlock"
+        :class="{
+            'is-disabled': disabled,
+            'is-noanimate': noanimate,
+            'is-circle': circle,
+            'is-complete': IsComplete
+        }"
         :style="slideUnlockStyle"
         @mousemove="slideMoving"
         @mouseup="slideFinish"
@@ -9,7 +15,7 @@
         @touchend="slideFinish"
     >
         <div class="slideunlock-progressbar" :style="progressBarStyle" />
-        <div class="slideunlock-text">
+        <div class="slideunlock-text" :style="Text">
             {{ message }}
         </div>
 
@@ -28,6 +34,21 @@
 <script>
 import { defineComponent } from "vue"
 import ease from "easy-ease"
+
+function debounce(func, wait, immediate) {
+    var timeout
+    return function() {
+        var context = this, args = arguments
+        var later = function() {
+            timeout = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timeout
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
 
 export default defineComponent({
     name: "SlideUnlock",
@@ -56,6 +77,14 @@ export default defineComponent({
             type: Boolean,
             default: true
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        noanimate: {
+            type: Boolean,
+            default: false
+        },
         handlerIcon: {
             type: String,
             default: ""
@@ -72,6 +101,9 @@ export default defineComponent({
             },
             Progress: {
                 width: 0
+            },
+            Text: {
+                opacity: 1
             }
         }
     },
@@ -79,8 +111,7 @@ export default defineComponent({
         slideUnlockStyle() {
             return {
                 width: this.autoWidth ? "auto" : this.width + "px",
-                height: this.height + "px",
-                borderRadius: this.circle ? (this.height/1.5 + "px") : 0
+                height: this.height + "px"
             }
         },
         progressBarStyle() {
@@ -99,8 +130,7 @@ export default defineComponent({
             return {
                 left: this.Handler.left,
                 width: this.height + "px",
-                height: this.height + "px",
-                borderRadius: this.circle ? "50%" : 0
+                height: this.height + "px"
             }
         },
         message() {
@@ -128,6 +158,11 @@ export default defineComponent({
         }
     },
     methods: {
+        fadeText: debounce(function() {
+            const Percent = Math.floor((this.HandlerPosition / (this.sliderWidth - this.height)) * 100)
+            const ReversePercent = Math.floor((1 / Percent) * 100)
+            this.Text.opacity = ReversePercent / 20
+        }, 5),
         slideStart(e) {
             if (!this.IsComplete) {
                 this.CanMove = true
@@ -141,6 +176,7 @@ export default defineComponent({
                 if (this.HandlerPosition > 0 && this.HandlerPosition <= (this.sliderWidth - this.height)){
                     this.Handler.left = this.HandlerPosition + "px"
                     this.Progress.width = (this.HandlerPosition + this.height/2) + "px"
+                    this.fadeText()
                 }
                 else if (this.HandlerPosition > (this.sliderWidth - this.height)){
                     this.Handler.left = (this.sliderWidth - this.height) + "px"
@@ -148,7 +184,6 @@ export default defineComponent({
                     this.passVerify()
                 }
             }
-
         },
         slideFinish(e) {
             if (this.CanMove && !this.IsComplete) {
@@ -163,6 +198,7 @@ export default defineComponent({
                             this.Progress.width = value + (this.height / 2) + "px"
                         }
                     })
+                    this.Text.opacity = 1
                 }
                 this.CanMove = false
             }
@@ -171,7 +207,6 @@ export default defineComponent({
         passVerify() {
             this.IsComplete = true
             this.CanMove = false
-            this.$refs.slider.className += " is-complete"
             this.$emit("passcallback")
         }
     }
@@ -197,12 +232,30 @@ export default defineComponent({
             background-position: 300px 0;
         }
     }
+    @keyframes shine {
+        100% {
+            width: 100%;
+            background-color: rgba(255,255,255,0);
+            transition: all 5s ease-out;
+        }
+    }
 	.slideunlock {
         position: relative;
         background-color: var(--su-color-bg);
         text-align: center;
         display: flex;
         padding: var(--su-size-padding);
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 0%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.4);
+            transition: none;
+            animation: shine 4s infinite;
+        }
         .slideunlock-progressbar {
             position: absolute;
             height: 34px;
@@ -217,13 +270,14 @@ export default defineComponent({
             align-items: center;
             width: 100%;
             user-select: none;
+            // color: var(--su-color-text-normal);
             animation: animated 2s linear infinite;
             background-clip: text;
             background-color: var(--su-color-text-normal);
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0), var(--su-color-handler-bg), rgba(255, 255, 255, 0));
             background-repeat: no-repeat;
             color: transparent;
-            transition: all 1s ease;
+            transition: background 1s ease, color 1s ease;
             font-size: var(--su-size-text);
             z-index: 2;
         }
@@ -244,12 +298,60 @@ export default defineComponent({
                 font-size: 1.5em;
             }
         }
+        &.is-circle {
+            border-radius: 50rem;
+            .slideunlock-handler {
+                border-radius: 50%;
+            }
+        }
+        &.is-noanimate {
+            &::after {
+                animation: none;
+            }
+            .slideunlock-text {
+                animation: none;
+                color: var(--su-color-text-normal);
+            }
+        }
+        &.is-disabled {
+            opacity: 0.5;
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--su-color-bg);
+                opacity: 0.5;
+                z-index: 10;
+                animation: none;
+            }
+            .slideunlock-text {
+                animation: none;
+                color: var(--su-color-text-normal);
+                opacity: 0.25;
+            }
+            .slideunlock-handler {
+                pointer-events: none;
+            }
+        }
+        &.is-disabled.is-circle {
+            &::after {
+                border-radius: 50rem;
+            }
+        }
         &.is-complete {
+            &::after {
+                animation: none;
+            }
             .slideunlock-progressbar {
                 background-color: var(--su-color-progress-complete-bg);
             }
             .slideunlock-text {
                 color: var(--su-color-text-complete);
+                opacity: 1 !important;
+                animation: none;
             }
             .slideunlock-handler {
                 background: var(--su-color-progress-complete-bg);

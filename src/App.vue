@@ -37,20 +37,22 @@
             <section class="demo-section">
                 <slide-unlock
                     :auto-width="getAutoWidth"
+                    :circle="getShape"
+                    :disabled="getDisabled"
+                    :noanimate="getNoAnimated"
                     :width="width"
                     :height="height"
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
                     :success-icon="successIcon"
-                    :circle="getShape"
                 />
             </section>
 
             <section class="props-section">
                 <h2>Options (props)</h2>
 
-                <div class="grid">
+                <div class="grid is-4">
                     <div class="item">
                         <label for="autoWidth">
                             <input
@@ -64,7 +66,7 @@
                         </label>
                     </div>
                     <div class="item">
-                        <label for="autoWidth">
+                        <label for="isCircle">
                             <input
                                 id="isCircle"
                                 v-model="isCircle"
@@ -75,6 +77,33 @@
                             isCircle
                         </label>
                     </div>
+                    <div class="item">
+                        <label for="isDisabled">
+                            <input
+                                id="isDisabled"
+                                v-model="isDisabled"
+                                type="checkbox"
+                                true-value="true"
+                                false-value="false"
+                            >
+                            isDisabled
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label for="isNoAnimate">
+                            <input
+                                id="isNoAnimate"
+                                v-model="isNoAnimate"
+                                type="checkbox"
+                                true-value="true"
+                                false-value="false"
+                            >
+                            isNoAnimate
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid">
                     <div class="item">
                         <label>width (px)</label>
                         <input v-model="width" type="number" :disabled="autoWidth === 'true'">
@@ -91,9 +120,18 @@
                         <label>successText</label>
                         <input v-model="successText" type="text">
                     </div>
+                </div>
+            </section>
+            <section class="size-section">
+                <h2>Options (CSS Variables)</h2>
+                <div class="grid">
                     <div class="item">
                         <label>textSize</label>
                         <input v-model="textSize" type="text">
+                    </div>
+                    <div class="item">
+                        <label>paddingSize</label>
+                        <input v-model="paddingSize" type="text">
                     </div>
                 </div>
             </section>
@@ -149,18 +187,21 @@ export default {
     data () {
         return {
             autoWidth: "true",
+            isCircle: "true",
+            isDisabled: "false",
+            isNoAnimate: "false",
             handlerIcon: "fa fa-angle-double-right",
             successIcon: "fa fa-check",
             text: "slide to unlock",
             successText: "success",
             width: 400,
             height: 80,
-            isCircle: "true",
+            TextSize: getComputedStyle(document.documentElement).getPropertyValue("--su-size-text"),
+            PaddingSize: getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding"),
             Background: getComputedStyle(document.documentElement).getPropertyValue("--su-color-bg"),
             ProgressBarBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-normal-bg"),
             CompletedBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg"),
             HandlerBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg"),
-            TextSize: getComputedStyle(document.documentElement).getPropertyValue("--su-size-text"),
             TextColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal"),
             TextCompleteColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete")
         }
@@ -171,6 +212,30 @@ export default {
         },
         getAutoWidth() {
             return this.autoWidth === "true"
+        },
+        getDisabled() {
+            return this.isDisabled === "true"
+        },
+        getNoAnimated() {
+            return this.isNoAnimate === "true"
+        },
+        textSize: {
+            set: function(value) {
+                this.TextSize = value
+                document.documentElement.style.setProperty("--su-size-text", value)
+            },
+            get: function() {
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-text")
+            }
+        },
+        paddingSize: {
+            set: function(value) {
+                this.PaddingSize = value
+                document.documentElement.style.setProperty("--su-size-padding", value)
+            },
+            get: function() {
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding")
+            }
         },
         background: {
             set: function(value) {
@@ -206,15 +271,6 @@ export default {
             },
             get: function() {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg")
-            }
-        },
-        textSize: {
-            set: function(value) {
-                this.TextSize = value
-                document.documentElement.style.setProperty("--su-size-text", value)
-            },
-            get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-text")
             }
         },
         textColor: {
@@ -312,6 +368,10 @@ section {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1rem;
     row-gap: 0.5rem;
+    &.is-4 {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 0.5rem 0;
+    }
     .item {
         max-width: 100%;
          overflow: hidden;
@@ -348,6 +408,14 @@ section {
             &.focus {
                 border-color: var(--color-theme);
                 outline: none;
+            }
+            &:disabled {
+                background-color: var(--color-lightestgray);
+                opacity: 1;
+                cursor: not-allowed;
+                &:hover {
+                    border-color: var(--color-lightgray);
+                }
             }
         }
         input[type=color] {
@@ -444,28 +512,5 @@ footer {
 }
 .demo-section {
     margin: 4rem 0;
-}
-table {
-    display: block;
-    width: 100%;
-    overflow: auto;
-    word-break: normal;
-    word-break: keep-all;
-    td {
-        padding: 0.25rem 0.5rem;
-        &:first-child {
-            text-align: right;
-        }
-        input {
-            font: inherit;
-            margin-bottom: 0.5rem;
-            margin: 0;
-            outline: none;
-            padding: 0.325rem;
-            border: 1px solid var(--color-lightgray);
-            border-radius: 0.25rem;
-            float:left;
-        }
-    }
 }
 </style>
