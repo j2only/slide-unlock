@@ -1,8 +1,9 @@
 {
     "name": "vue-slide-unlock",
-    "version": "0.2.1",
-    "private": true,
-    "description": "This is a vue component, this is used to protect users from accidental clicks.",
+    "version": "0.2.2",
+    "private": false,
+    "license": "MIT",
+    "description": "Vue.js 3.x slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": {
         "name": "Anton Zolotov",
         "email": "antonzolotov@outlook.com"
@@ -10,16 +11,26 @@
     "keywords": [
         "vue",
         "slide",
+        "swipe",
         "unlock"
     ],
-    "main": "./dist/vue-slide-unlock.common.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/joseph2/vue-slide-unlock.git"
+    },
+    "bugs": {
+        "url": "https://github.com/joseph2/vue-slide-unlock/issues"
+    },
+    "homepage": "https://github.com/joseph2/vue-slide-unlock#readme",
+    "main": "./dist/vue-slide-unlock.umd.min.js",
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build --target lib --name vue-slide-unlock src/lib.js",
         "build-demo": "vue-cli-service build --prefix docs --dest docs",
         "lint:js": "vue-cli-service lint",
         "lint:style": "stylelint **/*.{vue,css,scss} --ignore-path .stylelintignore --fix --config ./.stylelintrc-format",
-        "lint": "npm run lint:js && npm run lint:style"
+        "lint": "npm run lint:js && npm run lint:style",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
         "core-js": "^3.6.5",
