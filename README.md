@@ -72,6 +72,7 @@ Also, you can customize some styles via CSS Variables:
 | --su-color-text-normal          | #4F4F4F | Color of text on element                         |
 | --su-color-text-complete        | #FEFEFE | Color of text on element when slide is completed |
 | --su-color-handler-bg           | #FFFFFF | Color of handler                                 |
+| --su-icon-handler               | base64  | Icon of handler                                  |
 
 ## Event
 

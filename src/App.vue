@@ -42,7 +42,6 @@
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
-                    :success-icon="successIcon"
                 />
             </section>
 
@@ -131,6 +130,12 @@
                         <input v-model="paddingSize" type="text">
                     </div>
                 </div>
+                <div class="grid is-1">
+                    <div class="item">
+                        <label>handlerIcon</label>
+                        <input v-model="handlerIcon" type="text">
+                    </div>
+                </div>
             </section>
             <section class="colors-section">
                 <h2>Colors (CSS Variables)</h2>
@@ -194,8 +199,6 @@ export default {
             isCircle: "true",
             isDisabled: "false",
             isNoAnimate: "false",
-            handlerIcon: "fa fa-angle-double-right",
-            successIcon: "fa fa-check",
             text: "slide to unlock",
             successText: "success",
             width: 400,
@@ -207,7 +210,8 @@ export default {
             CompletedBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg"),
             HandlerBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg"),
             TextColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal"),
-            TextCompleteColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete")
+            TextCompleteColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete"),
+            HandlerIcon: getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler")
         }
     },
     computed: {
@@ -293,6 +297,15 @@ export default {
             },
             get: function() {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete")
+            }
+        },
+        handlerIcon: {
+            set: function(value) {
+                this.HandlerIcon = value
+                document.documentElement.style.setProperty("--su-icon-handler", value)
+            },
+            get: function() {
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler")
             }
         }
     },
@@ -392,6 +405,10 @@ section {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1rem;
     row-gap: 0.5rem;
+    &.is-1 {
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0.5rem 0 0;
+    }
     &.is-4 {
         grid-template-columns: repeat(4, 1fr);
         padding: 0.5rem 0;
