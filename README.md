@@ -2,7 +2,7 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/badge/main)](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/overview/main) [![npm](https://img.shields.io/npm/v/vue-slide-unlock.svg)](https://www.npmjs.com/package/vue-slide-unlock) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue-slide-unlock)](https://www.npmjs.com/package/vue-slide-unlock) [![Dependecy Status](https://david-dm.org/joseph2/vue-slide-unlock.svg)](https://david-dm.org/joseph2/vue-slide-unlock) [![devDependencies Status](https://david-dm.org/joseph2/vue-slide-unlock/dev-status.svg)](https://david-dm.org/joseph2/vue-slide-unlock?type=dev)
 
-Vue.js 3.x slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.
+Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack. Compatible with Vue.js 3.x and 2.x.
 
 You can check a [DEMO HERE](https://joseph2.github.io/vue-slide-unlock/)
 
