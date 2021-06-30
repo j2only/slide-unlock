@@ -26,7 +26,7 @@
 
                 <h1>Vue.js slide to unlock component</h1>
                 <div class="description">
-                    <b>Protect users from accidental clicks for Vue 3.x</b>
+                    <b>Protect users from accidental clicks for Vue.js</b>
                 </div>
             </section>
 
@@ -185,8 +185,7 @@
 </template>
 
 <script>
-// import SlideUnlock from "@/components/SlideUnlock"
-import SlideUnlock from "../dist/vue-slide-unlock.umd.min.js"
+import SlideUnlock from "@/components/SlideUnlock"
 
 export default {
     name: "App",
@@ -203,15 +202,15 @@ export default {
             successText: "success",
             width: 400,
             height: 80,
-            TextSize: getComputedStyle(document.documentElement).getPropertyValue("--su-size-text"),
-            PaddingSize: getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding"),
-            Background: getComputedStyle(document.documentElement).getPropertyValue("--su-color-bg"),
-            ProgressBarBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-normal-bg"),
-            CompletedBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg"),
-            HandlerBg: getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg"),
-            TextColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal"),
-            TextCompleteColor: getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete"),
-            HandlerIcon: getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler")
+            TextSize: this.textSize,
+            PaddingSize: this.paddingSize,
+            Background: this.background,
+            ProgressBarBg: this.progressBarBg,
+            CompletedBg: this.completedBg,
+            HandlerBg: this.handlerBg,
+            TextColor: this.textColor,
+            TextCompleteColor: this.textCompleteColor,
+            HandlerIcon: this.handlerIcon
         }
     },
     computed: {
@@ -233,7 +232,7 @@ export default {
                 document.documentElement.style.setProperty("--su-size-text", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-text")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-text").trim()
             }
         },
         paddingSize: {
@@ -242,7 +241,7 @@ export default {
                 document.documentElement.style.setProperty("--su-size-padding", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding").trim()
             }
         },
         background: {
@@ -251,7 +250,7 @@ export default {
                 document.documentElement.style.setProperty("--su-color-bg", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-bg")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-bg").trim()
             }
         },
         progressBarBg: {
@@ -260,7 +259,7 @@ export default {
                 document.documentElement.style.setProperty("--su-color-progress-normal-bg", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-normal-bg")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-normal-bg").trim()
             }
         },
         completedBg: {
@@ -269,7 +268,7 @@ export default {
                 document.documentElement.style.setProperty("--su-color-progress-complete-bg", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg").trim()
             }
         },
         handlerBg: {
@@ -278,7 +277,7 @@ export default {
                 document.documentElement.style.setProperty("--su-color-handler-bg", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg").trim()
             }
         },
         textColor: {
@@ -287,7 +286,7 @@ export default {
                 document.documentElement.style.setProperty("--su-color-text-normal", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal").trim()
             }
         },
         textCompleteColor: {
@@ -296,7 +295,7 @@ export default {
                 document.documentElement.style.setProperty("--su-color-text-complete", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete").trim()
             }
         },
         handlerIcon: {
@@ -305,7 +304,7 @@ export default {
                 document.documentElement.style.setProperty("--su-icon-handler", value)
             },
             get: function() {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler")
+                return getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler").trim()
             }
         }
     },

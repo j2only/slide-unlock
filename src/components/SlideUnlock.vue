@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { defineComponent } from "vue"
 import ease from "easy-ease"
 
 function debounce(func, wait, immediate) {
@@ -48,7 +47,7 @@ function debounce(func, wait, immediate) {
     }
 }
 
-export default defineComponent({
+export default {
     name: "SlideUnlock",
     props: {
         autoWidth: {
@@ -224,7 +223,7 @@ export default defineComponent({
             this.Text.opacity = 1
         }
     }
-})
+}
 </script>
 
 <style lang="scss">
