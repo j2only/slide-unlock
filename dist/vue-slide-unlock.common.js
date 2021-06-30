@@ -125,6 +125,7 @@ var replace = ''.replace;
 var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d{1,2}|<[^>]*>)/g;
 var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d{1,2})/g;
 
+// `GetSubstitution` abstract operation
 // https://tc39.es/ecma262/#sec-getsubstitution
 module.exports = function (matched, str, position, captures, namedCaptures, replacement) {
   var tailPos = position + matched.length;
@@ -175,6 +176,21 @@ module.exports = !DESCRIPTORS && !fails(function () {
   return Object.defineProperty(createElement('div'), 'a', {
     get: function () { return 7; }
   }).a != 7;
+});
+
+
+/***/ }),
+
+/***/ "107c":
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__("d039");
+
+module.exports = fails(function () {
+  // babel-minify transpiles RegExp('.', 'g') -> /./g and it causes SyntaxError
+  var re = RegExp('(?<a>b)', (typeof '').charAt(5));
+  return re.exec('b').groups.a !== 'b' ||
+    'b'.replace(re, '$<a>c') !== 'bc';
 });
 
 
@@ -270,17 +286,6 @@ module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on " + it);
   return it;
 };
-
-
-/***/ }),
-
-/***/ "215b":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_cli_service_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_cli_service_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SlideUnlock_vue_vue_type_style_index_0_id_6b96f946_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("bd70");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_cli_service_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_cli_service_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SlideUnlock_vue_vue_type_style_index_0_id_6b96f946_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_cli_service_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_cli_service_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SlideUnlock_vue_vue_type_style_index_0_id_6b96f946_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
 
 
 /***/ }),
@@ -497,7 +502,7 @@ var match, version;
 
 if (v8) {
   match = v8.split('.');
-  version = match[0] + match[1];
+  version = match[0] < 4 ? 1 : match[0] + match[1];
 } else if (userAgent) {
   match = userAgent.match(/Edge\/(\d+)/);
   if (!match || match[1] >= 74) {
@@ -592,17 +597,18 @@ module.exports = fails(function () {
 /***/ "4930":
 /***/ (function(module, exports, __webpack_require__) {
 
-var IS_NODE = __webpack_require__("605d");
+/* eslint-disable es/no-symbol -- required for testing */
 var V8_VERSION = __webpack_require__("2d00");
 var fails = __webpack_require__("d039");
 
 // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
-  // eslint-disable-next-line es/no-symbol -- required for testing
-  return !Symbol.sham &&
-    // Chrome 38 Symbol has incorrect toString conversion
+  var symbol = Symbol();
+  // Chrome 38 Symbol has incorrect toString conversion
+  // `get-own-property-symbols` polyfill symbols converted to object are not Symbol instances
+  return !String(symbol) || !(Object(symbol) instanceof Symbol) ||
     // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
-    (IS_NODE ? V8_VERSION === 38 : V8_VERSION > 37 && V8_VERSION < 41);
+    !Symbol.sham && V8_VERSION && V8_VERSION < 41;
 });
 
 
@@ -936,7 +942,7 @@ var toObject = __webpack_require__("7b0b");
 
 var hasOwnProperty = {}.hasOwnProperty;
 
-module.exports = function hasOwn(it, key) {
+module.exports = Object.hasOwn || function hasOwn(it, key) {
   return hasOwnProperty.call(toObject(it), key);
 };
 
@@ -949,6 +955,7 @@ module.exports = function hasOwn(it, key) {
 "use strict";
 
 var fixRegExpWellKnownSymbolLogic = __webpack_require__("d784");
+var fails = __webpack_require__("d039");
 var anObject = __webpack_require__("825a");
 var toLength = __webpack_require__("50c4");
 var toInteger = __webpack_require__("a691");
@@ -956,7 +963,9 @@ var requireObjectCoercible = __webpack_require__("1d80");
 var advanceStringIndex = __webpack_require__("8aa5");
 var getSubstitution = __webpack_require__("0cb2");
 var regExpExec = __webpack_require__("14c3");
+var wellKnownSymbol = __webpack_require__("b622");
 
+var REPLACE = wellKnownSymbol('replace');
 var max = Math.max;
 var min = Math.min;
 
@@ -964,10 +973,33 @@ var maybeToString = function (it) {
   return it === undefined ? it : String(it);
 };
 
+// IE <= 11 replaces $0 with the whole match, as if it was $&
+// https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
+var REPLACE_KEEPS_$0 = (function () {
+  // eslint-disable-next-line regexp/prefer-escape-replacement-dollar-char -- required for testing
+  return 'a'.replace(/./, '$0') === '$0';
+})();
+
+// Safari <= 13.0.3(?) substitutes nth capture where n>m with an empty string
+var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = (function () {
+  if (/./[REPLACE]) {
+    return /./[REPLACE]('a', '$0') === '';
+  }
+  return false;
+})();
+
+var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
+  var re = /./;
+  re.exec = function () {
+    var result = [];
+    result.groups = { a: '7' };
+    return result;
+  };
+  return ''.replace(re, '$<a>') !== '7';
+});
+
 // @@replace logic
-fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative, reason) {
-  var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = reason.REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE;
-  var REPLACE_KEEPS_$0 = reason.REPLACE_KEEPS_$0;
+fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNative) {
   var UNSAFE_SUBSTITUTE = REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE ? '$' : '$0';
 
   return [
@@ -982,17 +1014,18 @@ fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, ma
     },
     // `RegExp.prototype[@@replace]` method
     // https://tc39.es/ecma262/#sec-regexp.prototype-@@replace
-    function (regexp, replaceValue) {
+    function (string, replaceValue) {
       if (
-        (!REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE && REPLACE_KEEPS_$0) ||
-        (typeof replaceValue === 'string' && replaceValue.indexOf(UNSAFE_SUBSTITUTE) === -1)
+        typeof replaceValue === 'string' &&
+        replaceValue.indexOf(UNSAFE_SUBSTITUTE) === -1 &&
+        replaceValue.indexOf('$<') === -1
       ) {
-        var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
+        var res = maybeCallNative(nativeReplace, this, string, replaceValue);
         if (res.done) return res.value;
       }
 
-      var rx = anObject(regexp);
-      var S = String(this);
+      var rx = anObject(this);
+      var S = String(string);
 
       var functionalReplace = typeof replaceValue === 'function';
       if (!functionalReplace) replaceValue = String(replaceValue);
@@ -1044,7 +1077,7 @@ fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, ma
       return accumulatedResult + S.slice(nextSourcePosition);
     }
   ];
-});
+}, !REPLACE_SUPPORTS_NAMED_GROUPS || !REPLACE_KEEPS_$0 || REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE);
 
 
 /***/ }),
@@ -1058,7 +1091,7 @@ var store = __webpack_require__("c6cd");
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.11.0',
+  version: '3.15.2',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
@@ -1144,17 +1177,6 @@ module.exports = function (bitmap, value) {
 
 /***/ }),
 
-/***/ "605d":
-/***/ (function(module, exports, __webpack_require__) {
-
-var classof = __webpack_require__("c6b6");
-var global = __webpack_require__("da84");
-
-module.exports = classof(global.process) == 'process';
-
-
-/***/ }),
-
 /***/ "6547":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1189,6 +1211,17 @@ module.exports = {
 
 /***/ }),
 
+/***/ "6625":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SlideUnlock_vue_vue_type_style_index_0_id_10431d18_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("8789");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SlideUnlock_vue_vue_type_style_index_0_id_10431d18_lang_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SlideUnlock_vue_vue_type_style_index_0_id_10431d18_lang_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "69f3":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1218,7 +1251,7 @@ var getterFor = function (TYPE) {
   };
 };
 
-if (NATIVE_WEAK_MAP) {
+if (NATIVE_WEAK_MAP || shared.state) {
   var store = shared.state || (shared.state = new WeakMap());
   var wmget = store.get;
   var wmhas = store.has;
@@ -1510,6 +1543,22 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "8789":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("b3f7");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("57dfd7f2", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
 /***/ "8875":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1602,7 +1651,7 @@ var store = __webpack_require__("c6cd");
 
 var functionToString = Function.toString;
 
-// this helper broken in `3.4.1-3.4.4`, so we can't use `shared` helper
+// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
 if (typeof store.inspectSource != 'function') {
   store.inspectSource = function (it) {
     return functionToString.call(it);
@@ -1672,9 +1721,15 @@ module.exports = DESCRIPTORS ? function (object, key, value) {
 
 "use strict";
 
+/* eslint-disable regexp/no-assertion-capturing-group, regexp/no-empty-group, regexp/no-lazy-ends -- testing */
+/* eslint-disable regexp/no-useless-quantifier -- testing */
 var regexpFlags = __webpack_require__("ad6d");
 var stickyHelpers = __webpack_require__("9f7f");
 var shared = __webpack_require__("5692");
+var create = __webpack_require__("7c73");
+var getInternalState = __webpack_require__("69f3").get;
+var UNSUPPORTED_DOT_ALL = __webpack_require__("fce3");
+var UNSUPPORTED_NCG = __webpack_require__("107c");
 
 var nativeExec = RegExp.prototype.exec;
 var nativeReplace = shared('native-string-replace', String.prototype.replace);
@@ -1692,15 +1747,26 @@ var UPDATES_LAST_INDEX_WRONG = (function () {
 var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y || stickyHelpers.BROKEN_CARET;
 
 // nonparticipating capturing group, copied from es5-shim's String#split patch.
-// eslint-disable-next-line regexp/no-assertion-capturing-group, regexp/no-empty-group, regexp/no-lazy-ends -- testing
 var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
 
-var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y;
+var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG;
 
 if (PATCH) {
+  // eslint-disable-next-line max-statements -- TODO
   patchedExec = function exec(str) {
     var re = this;
-    var lastIndex, reCopy, match, i;
+    var state = getInternalState(re);
+    var raw = state.raw;
+    var result, reCopy, lastIndex, match, i, object, group;
+
+    if (raw) {
+      raw.lastIndex = re.lastIndex;
+      result = patchedExec.call(raw, str);
+      re.lastIndex = raw.lastIndex;
+      return result;
+    }
+
+    var groups = state.groups;
     var sticky = UNSUPPORTED_Y && re.sticky;
     var flags = regexpFlags.call(re);
     var source = re.source;
@@ -1750,6 +1816,14 @@ if (PATCH) {
           if (arguments[i] === undefined) match[i] = undefined;
         }
       });
+    }
+
+    if (match && groups) {
+      match.groups = object = create(null);
+      for (i = 0; i < groups.length; i++) {
+        group = groups[i];
+        object[group[0]] = match[group[1]];
+      }
     }
 
     return match;
@@ -1820,19 +1894,14 @@ exports.f = DESCRIPTORS ? $defineProperty : function defineProperty(O, P, Attrib
 /***/ "9f7f":
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
 var fails = __webpack_require__("d039");
 
 // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError,
-// so we use an intermediate function.
-function RE(s, f) {
+var RE = function (s, f) {
   return RegExp(s, f);
-}
+};
 
 exports.UNSUPPORTED_Y = fails(function () {
-  // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
   var re = RE('a', 'y');
   re.lastIndex = 2;
   return re.exec('abcd') != null;
@@ -1859,20 +1928,6 @@ var floor = Math.floor;
 module.exports = function (argument) {
   return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
 };
-
-
-/***/ }),
-
-/***/ "a8a8":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ":root{--su-size-text:24px;--su-size-padding:6px;--su-color-bg:#ebebeb;--su-color-progress-normal-bg:#cacaca;--su-color-progress-complete-bg:#42b983;--su-color-text-normal:#4f4f4f;--su-color-text-complete:#fefefe;--su-color-handler-bg:#fff}@-webkit-keyframes animated{0%{background-position:-300px 0}to{background-position:300px 0}}@keyframes animated{0%{background-position:-300px 0}to{background-position:300px 0}}@-webkit-keyframes shine{to{width:100%;transition:all 5s ease-out;background-color:hsla(0,0%,100%,0)}}@keyframes shine{to{width:100%;transition:all 5s ease-out;background-color:hsla(0,0%,100%,0)}}.slideunlock{display:flex;position:relative;box-sizing:content-box;padding:var(--su-size-padding);background-color:var(--su-color-bg);text-align:center}.slideunlock:after{content:\"\";position:absolute;top:0;left:0;width:0;height:100%;transition:none;-webkit-animation:shine 4s infinite;animation:shine 4s infinite;background-color:hsla(0,0%,100%,.4)}.slideunlock .slideunlock-progressbar{position:absolute;z-index:1;width:0;height:34px;transition:background 1s ease-out;background-color:var(--su-color-progress-normal-bg)}.slideunlock .slideunlock-text{display:inline;z-index:2;align-items:center;justify-content:center;width:100%;transition:background 1s ease,color 1s ease;-webkit-animation:animated 2s linear infinite;animation:animated 2s linear infinite;background:var(--su-color-text-normal) linear-gradient(90deg,hsla(0,0%,100%,0),#fff,hsla(0,0%,100%,0)) no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;font-size:var(--su-size-text);-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.slideunlock .slideunlock-text:before{content:\"\";display:inline-block;height:100%;vertical-align:middle}.slideunlock .slideunlock-handler{position:absolute;z-index:3;top:0;left:0;margin:var(--su-size-padding);transition:background .75s ease,transform .1s ease-in;background:var(--su-color-handler-bg) url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0ZDhlNWY5My05NmI0LTRlNWQtOGFjYi03ZTY4OGYyMTU2ZTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTEyNTVEMURGMkVFMTFFNEI5NDBCMjQ2M0ExMDQ1OUYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTEyNTVEMUNGMkVFMTFFNEI5NDBCMjQ2M0ExMDQ1OUYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MTc5NzNmZS02OTQxLTQyOTYtYTIwNi02NDI2YTNkOWU5YmUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NGQ4ZTVmOTMtOTZiNC00ZTVkLThhY2ItN2U2ODhmMjE1NmU2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+YiRG4AAAALFJREFUeNpi/P//PwMlgImBQkA9A+bOnfsIiBOxKcInh+yCaCDuByoswaIOpxwjciACFegBqZ1AvBSIS5OTk/8TkmNEjwWgQiUgtQuIjwAxUF3yX3xyGIEIFLwHpKyAWB+I1xGSwxULIGf9A7mQkBwTlhBXAFLHgPgqEAcTkmNCU6AL9d8WII4HOvk3ITkWJAXWUMlOoGQHmsE45ViQ2KuBuASoYC4Wf+OUYxz6mQkgwAAN9mIrUReCXgAAAABJRU5ErkJggg==\") no-repeat 50%;cursor:-webkit-grab;cursor:grab}.slideunlock .slideunlock-handler:active{transform:scale(1.05);cursor:-webkit-grabbing;cursor:grabbing}.slideunlock .slideunlock-handler i{color:var(--color-text);font-size:1.5em}.slideunlock.is-circle{border-radius:50rem}.slideunlock.is-circle:after{border-radius:50rem 0 0 50rem}.slideunlock.is-circle .slideunlock-handler{border-radius:50%}.slideunlock.is-noanimate:after{-webkit-animation:none;animation:none}.slideunlock.is-noanimate .slideunlock-text{-webkit-animation:none;animation:none;color:var(--su-color-text-normal)}.slideunlock.is-disabled{opacity:.5}.slideunlock.is-disabled:after{content:\"\";position:absolute;z-index:10;top:0;left:0;width:100%;height:100%;-webkit-animation:none;animation:none;opacity:.5;background-color:var(--su-color-bg)}.slideunlock.is-disabled .slideunlock-text{-webkit-animation:none;animation:none;opacity:.25;color:var(--su-color-text-normal)}.slideunlock.is-disabled .slideunlock-handler{pointer-events:none}.slideunlock.is-disabled.is-circle:after{border-radius:50rem}.slideunlock.is-complete:after{-webkit-animation:none;animation:none}.slideunlock.is-complete .slideunlock-progressbar{background-color:var(--su-color-progress-complete-bg)}.slideunlock.is-complete .slideunlock-text{-webkit-animation:none;animation:none;opacity:1!important;color:var(--su-color-text-complete)}.slideunlock.is-complete .slideunlock-handler{opacity:0;background:var(--su-color-progress-complete-bg)}", ""]);
-// Exports
-module.exports = exports;
 
 
 /***/ }),
@@ -2006,6 +2061,20 @@ module.exports = function () {
 
 /***/ }),
 
+/***/ "b3f7":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ":root{--su-size-text:24px;--su-size-padding:6px;--su-color-bg:#ebebeb;--su-color-progress-normal-bg:#cacaca;--su-color-progress-complete-bg:#42b983;--su-color-text-normal:#4f4f4f;--su-color-text-complete:#fefefe;--su-color-handler-bg:#fff;--su-icon-handler:url(\"data:image/svg;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0ZDhlNWY5My05NmI0LTRlNWQtOGFjYi03ZTY4OGYyMTU2ZTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTEyNTVEMURGMkVFMTFFNEI5NDBCMjQ2M0ExMDQ1OUYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTEyNTVEMUNGMkVFMTFFNEI5NDBCMjQ2M0ExMDQ1OUYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MTc5NzNmZS02OTQxLTQyOTYtYTIwNi02NDI2YTNkOWU5YmUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NGQ4ZTVmOTMtOTZiNC00ZTVkLThhY2ItN2U2ODhmMjE1NmU2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+YiRG4AAAALFJREFUeNpi/P//PwMlgImBQkA9A+bOnfsIiBOxKcInh+yCaCDuByoswaIOpxwjciACFegBqZ1AvBSIS5OTk/8TkmNEjwWgQiUgtQuIjwAxUF3yX3xyGIEIFLwHpKyAWB+I1xGSwxULIGf9A7mQkBwTlhBXAFLHgPgqEAcTkmNCU6AL9d8WII4HOvk3ITkWJAXWUMlOoGQHmsE45ViQ2KuBuASoYC4Wf+OUYxz6mQkgwAAN9mIrUReCXgAAAABJRU5ErkJggg==\")}@-webkit-keyframes animated{0%{background-position:-300px 0}to{background-position:300px 0}}@keyframes animated{0%{background-position:-300px 0}to{background-position:300px 0}}@-webkit-keyframes shine{to{width:100%;transition:all 5s ease-out;background-color:hsla(0,0%,100%,0)}}@keyframes shine{to{width:100%;transition:all 5s ease-out;background-color:hsla(0,0%,100%,0)}}.slideunlock{display:flex;position:relative;box-sizing:content-box;padding:var(--su-size-padding);background-color:var(--su-color-bg);text-align:center}.slideunlock:after{content:\"\";position:absolute;top:0;left:0;width:0;height:100%;transition:none;-webkit-animation:shine 4s infinite;animation:shine 4s infinite;background-color:hsla(0,0%,100%,.4)}.slideunlock .slideunlock-progressbar{position:absolute;z-index:1;width:0;height:34px;transition:background 1s ease-out;background-color:var(--su-color-progress-normal-bg)}.slideunlock .slideunlock-text{display:inline;z-index:2;align-items:center;justify-content:center;width:100%;transition:background 1s ease,color 1s ease;-webkit-animation:animated 2s linear infinite;animation:animated 2s linear infinite;background:var(--su-color-text-normal) linear-gradient(90deg,hsla(0,0%,100%,0),#fff,hsla(0,0%,100%,0)) no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;font-size:var(--su-size-text);-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.slideunlock .slideunlock-text:before{content:\"\";display:inline-block;height:100%;vertical-align:middle}.slideunlock .slideunlock-handler{position:absolute;z-index:3;top:0;left:0;margin:var(--su-size-padding);transition:background .75s ease,transform .1s ease-in;background:var(--su-color-handler-bg) var(--su-icon-handler) no-repeat 50%;cursor:-webkit-grab;cursor:grab}.slideunlock .slideunlock-handler:active{transform:scale(1.05);cursor:-webkit-grabbing;cursor:grabbing}.slideunlock.is-circle{border-radius:50rem}.slideunlock.is-circle:after{border-radius:50rem 0 0 50rem}.slideunlock.is-circle .slideunlock-handler{border-radius:50%}.slideunlock.is-noanimate:after{-webkit-animation:none;animation:none}.slideunlock.is-noanimate .slideunlock-text{-webkit-animation:none;animation:none;color:var(--su-color-text-normal)}.slideunlock.is-disabled{opacity:.5}.slideunlock.is-disabled:after{content:\"\";position:absolute;z-index:10;top:0;left:0;width:100%;height:100%;-webkit-animation:none;animation:none;opacity:.5;background-color:var(--su-color-bg)}.slideunlock.is-disabled .slideunlock-text{-webkit-animation:none;animation:none;opacity:.25;color:var(--su-color-text-normal)}.slideunlock.is-disabled .slideunlock-handler{pointer-events:none}.slideunlock.is-disabled.is-circle:after{border-radius:50rem}.slideunlock.is-complete:after{-webkit-animation:none;animation:none}.slideunlock.is-complete .slideunlock-progressbar{background-color:var(--su-color-progress-complete-bg)}.slideunlock.is-complete .slideunlock-text{-webkit-animation:none;animation:none;opacity:1!important;color:var(--su-color-text-complete)}.slideunlock.is-complete .slideunlock-handler{opacity:0;background:var(--su-color-progress-complete-bg)}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "b622":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2030,22 +2099,6 @@ module.exports = function (name) {
   } return WellKnownSymbolsStore[name];
 };
 
-
-/***/ }),
-
-/***/ "bd70":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("a8a8");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("4a449221", content, true, {"sourceMap":false,"shadowMode":false});
 
 /***/ }),
 
@@ -2292,53 +2345,15 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
 // TODO: Remove from `core-js@4` since it's moved to entry points
 __webpack_require__("ac1f");
 var redefine = __webpack_require__("6eeb");
+var regexpExec = __webpack_require__("9263");
 var fails = __webpack_require__("d039");
 var wellKnownSymbol = __webpack_require__("b622");
 var createNonEnumerableProperty = __webpack_require__("9112");
 
 var SPECIES = wellKnownSymbol('species');
+var RegExpPrototype = RegExp.prototype;
 
-var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
-  // #replace needs built-in support for named groups.
-  // #match works fine because it just return the exec results, even if it has
-  // a "grops" property.
-  var re = /./;
-  re.exec = function () {
-    var result = [];
-    result.groups = { a: '7' };
-    return result;
-  };
-  return ''.replace(re, '$<a>') !== '7';
-});
-
-// IE <= 11 replaces $0 with the whole match, as if it was $&
-// https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
-var REPLACE_KEEPS_$0 = (function () {
-  // eslint-disable-next-line regexp/prefer-escape-replacement-dollar-char -- required for testing
-  return 'a'.replace(/./, '$0') === '$0';
-})();
-
-var REPLACE = wellKnownSymbol('replace');
-// Safari <= 13.0.3(?) substitutes nth capture where n>m with an empty string
-var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = (function () {
-  if (/./[REPLACE]) {
-    return /./[REPLACE]('a', '$0') === '';
-  }
-  return false;
-})();
-
-// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
-// Weex JS has frozen built-in prototypes, so use try / catch wrapper
-var SPLIT_WORKS_WITH_OVERWRITTEN_EXEC = !fails(function () {
-  // eslint-disable-next-line regexp/no-empty-group -- required for testing
-  var re = /(?:)/;
-  var originalExec = re.exec;
-  re.exec = function () { return originalExec.apply(this, arguments); };
-  var result = 'ab'.split(re);
-  return result.length !== 2 || result[0] !== 'a' || result[1] !== 'b';
-});
-
-module.exports = function (KEY, length, exec, sham) {
+module.exports = function (KEY, exec, FORCED, SHAM) {
   var SYMBOL = wellKnownSymbol(KEY);
 
   var DELEGATES_TO_SYMBOL = !fails(function () {
@@ -2375,16 +2390,12 @@ module.exports = function (KEY, length, exec, sham) {
   if (
     !DELEGATES_TO_SYMBOL ||
     !DELEGATES_TO_EXEC ||
-    (KEY === 'replace' && !(
-      REPLACE_SUPPORTS_NAMED_GROUPS &&
-      REPLACE_KEEPS_$0 &&
-      !REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
-    )) ||
-    (KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC)
+    FORCED
   ) {
     var nativeRegExpMethod = /./[SYMBOL];
     var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-      if (regexp.exec === RegExp.prototype.exec) {
+      var $exec = regexp.exec;
+      if ($exec === regexpExec || $exec === RegExpPrototype.exec) {
         if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
           // The native String method already delegates to @@method (this
           // polyfilled function), leasing to infinite recursion.
@@ -2394,25 +2405,13 @@ module.exports = function (KEY, length, exec, sham) {
         return { done: true, value: nativeMethod.call(str, regexp, arg2) };
       }
       return { done: false };
-    }, {
-      REPLACE_KEEPS_$0: REPLACE_KEEPS_$0,
-      REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE: REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
     });
-    var stringMethod = methods[0];
-    var regexMethod = methods[1];
 
-    redefine(String.prototype, KEY, stringMethod);
-    redefine(RegExp.prototype, SYMBOL, length == 2
-      // 21.2.5.8 RegExp.prototype[@@replace](string, replaceValue)
-      // 21.2.5.11 RegExp.prototype[@@split](string, limit)
-      ? function (string, arg) { return regexMethod.call(string, this, arg); }
-      // 21.2.5.6 RegExp.prototype[@@match](string)
-      // 21.2.5.9 RegExp.prototype[@@search](string)
-      : function (string) { return regexMethod.call(string, this); }
-    );
+    redefine(String.prototype, KEY, methods[0]);
+    redefine(RegExpPrototype, SYMBOL, methods[1]);
   }
 
-  if (sham) createNonEnumerableProperty(RegExp.prototype[SYMBOL], 'sham', true);
+  if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true);
 };
 
 
@@ -2526,51 +2525,49 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SlideUnlock.vue?vue&type=template&id=6b96f946
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SlideUnlock.vue?vue&type=template&id=10431d18
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
     ref: "slider",
     class: ["slideunlock", {
-      'is-disabled': _ctx.disabled,
-      'is-noanimate': _ctx.noanimate,
-      'is-circle': _ctx.circle,
-      'is-complete': _ctx.IsComplete
+      'is-disabled': $props.disabled,
+      'is-noanimate': $props.noanimate,
+      'is-circle': $props.circle,
+      'is-complete': $data.IsComplete
     }],
-    style: _ctx.slideUnlockStyle,
+    style: $options.slideUnlockStyle,
     onMousemove: _cache[3] || (_cache[3] = function () {
-      return _ctx.slideMoving && _ctx.slideMoving.apply(_ctx, arguments);
+      return $options.slideMoving && $options.slideMoving.apply($options, arguments);
     }),
     onMouseup: _cache[4] || (_cache[4] = function () {
-      return _ctx.slideFinish && _ctx.slideFinish.apply(_ctx, arguments);
+      return $options.slideFinish && $options.slideFinish.apply($options, arguments);
     }),
     onTouchmove: _cache[5] || (_cache[5] = function () {
-      return _ctx.slideMoving && _ctx.slideMoving.apply(_ctx, arguments);
+      return $options.slideMoving && $options.slideMoving.apply($options, arguments);
     }),
     onTouchend: _cache[6] || (_cache[6] = function () {
-      return _ctx.slideFinish && _ctx.slideFinish.apply(_ctx, arguments);
+      return $options.slideFinish && $options.slideFinish.apply($options, arguments);
     })
   }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])("div", {
     class: "slideunlock-progressbar",
-    style: _ctx.progressBarStyle
+    style: $options.progressBarStyle
   }, null, 4), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])("div", {
     class: "slideunlock-text",
-    style: _ctx.Text
-  }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])(_ctx.message), 5), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])("div", {
+    style: $data.Text
+  }, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toDisplayString"])($options.message), 5), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])("div", {
     ref: "handler",
     class: "slideunlock-handler",
-    style: _ctx.handlerStyle,
+    style: $options.handlerStyle,
     onMousedown: _cache[1] || (_cache[1] = function () {
-      return _ctx.slideStart && _ctx.slideStart.apply(_ctx, arguments);
+      return $options.slideStart && $options.slideStart.apply($options, arguments);
     }),
     onTouchstart: _cache[2] || (_cache[2] = function () {
-      return _ctx.slideStart && _ctx.slideStart.apply(_ctx, arguments);
+      return $options.slideStart && $options.slideStart.apply($options, arguments);
     })
-  }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])("i", {
-    class: _ctx.handlerIcon
-  }, null, 2)], 36)], 38);
+  }, null, 36)], 38);
 }
-// CONCATENATED MODULE: ./src/components/SlideUnlock.vue?vue&type=template&id=6b96f946
+// CONCATENATED MODULE: ./src/components/SlideUnlock.vue?vue&type=template&id=10431d18
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
@@ -2585,8 +2582,7 @@ var es_string_replace = __webpack_require__("5319");
 var easy_ease = __webpack_require__("1280");
 var easy_ease_default = /*#__PURE__*/__webpack_require__.n(easy_ease);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SlideUnlock.vue?vue&type=script&lang=js
-
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/components/SlideUnlock.vue?vue&type=script&lang=js
 
 
 
@@ -2610,7 +2606,7 @@ function debounce(func, wait, immediate) {
   };
 }
 
-/* harmony default export */ var SlideUnlockvue_type_script_lang_js = (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["defineComponent"])({
+/* harmony default export */ var SlideUnlockvue_type_script_lang_js = ({
   name: "SlideUnlock",
   props: {
     autoWidth: {
@@ -2644,10 +2640,6 @@ function debounce(func, wait, immediate) {
     noanimate: {
       type: Boolean,
       default: false
-    },
-    handlerIcon: {
-      type: String,
-      default: ""
     }
   },
   data: function data() {
@@ -2714,7 +2706,7 @@ function debounce(func, wait, immediate) {
   methods: {
     fadeText: debounce(function () {
       var ReversePercent = (this.sliderWidth - this.height) * (100 / this.HandlerPosition) / 1000 - 0.1;
-      this.Text.opacity = ReversePercent;
+      if (this.CanMove) this.Text.opacity = ReversePercent;
     }, 5),
     slideStart: function slideStart(e) {
       var THIS = this;
@@ -2783,11 +2775,11 @@ function debounce(func, wait, immediate) {
       this.CanMove = false, this.IsComplete = false, this.StartPositionWindow = 0, this.HandlerPosition = 0, this.Handler.left = 0, this.Progress.width = 0, this.Text.opacity = 1;
     }
   }
-}));
+});
 // CONCATENATED MODULE: ./src/components/SlideUnlock.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/components/SlideUnlock.vue?vue&type=style&index=0&id=6b96f946&lang=scss
-var SlideUnlockvue_type_style_index_0_id_6b96f946_lang_scss = __webpack_require__("215b");
+// EXTERNAL MODULE: ./src/components/SlideUnlock.vue?vue&type=style&index=0&id=10431d18&lang=scss
+var SlideUnlockvue_type_style_index_0_id_10431d18_lang_scss = __webpack_require__("6625");
 
 // CONCATENATED MODULE: ./src/components/SlideUnlock.vue
 
@@ -2820,6 +2812,20 @@ var requireObjectCoercible = __webpack_require__("1d80");
 module.exports = function (it) {
   return IndexedObject(requireObjectCoercible(it));
 };
+
+
+/***/ }),
+
+/***/ "fce3":
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__("d039");
+
+module.exports = fails(function () {
+  // babel-minify transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
+  var re = RegExp('.', (typeof '').charAt(0));
+  return !(re.dotAll && re.exec('\n') && re.flags === 's');
+});
 
 
 /***/ }),
