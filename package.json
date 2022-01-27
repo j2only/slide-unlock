@@ -26,7 +26,6 @@
         "@vue/cli-plugin-eslint": "~5.0.0-rc.2",
         "@vue/cli-service": "~5.0.0-rc.2",
         "@vue/compiler-sfc": "^3.2.29",
-        "@vue/eslint-config-standard": "^6.1.0",
         "babel-eslint": "^10.1.0",
         "eslint": "^8.7.0",
         "eslint-plugin-import": "^2.25.4",
