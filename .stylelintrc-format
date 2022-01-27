@@ -1,24 +1,33 @@
 {
-    extends: [
-        "stylelint-config-standard",
+    "extends": [
+        "stylelint-config-standard-scss",
         "stylelint-config-property-sort-order-smacss"
     ],
-    plugins: [
+    "plugins": [
         "stylelint-scss",
         "stylelint-order"
     ],
-    rules: {
-        indentation: 4,
+    "overrides": [
+        {
+            "files": [
+                "**/*.vue"
+            ],
+            "customSyntax": "postcss-html"
+        }
+    ],
+    "rules": {
+        "indentation": 4,
         "rule-empty-line-before": "never",
         "at-rule-empty-line-before": "never",
         "at-rule-no-unknown": null,
         "color-hex-case": "upper",
         "no-descending-specificity": null,
+        "max-line-length": null,
         "selector-type-no-unknown": [
             true,
             {
                 "ignore": [
-                "custom-elements"
+                    "custom-elements"
                 ]
             }
         ],
@@ -45,6 +54,6 @@
                 "type": "rule",
                 "selector": "^."
             }
-        ],
+        ]
     }
 }

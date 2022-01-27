@@ -1,59 +1,63 @@
 {
     "name": "vue-slide-unlock",
     "version": "0.3.0",
-    "license": "MIT",
     "description": "Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": {
         "name": "Anton Zolotov",
         "email": "antonzolotov@outlook.com"
     },
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build --target lib --name vue-slide-unlock src/lib.js",
+        "lint": "npm run lint:js && npm run lint:style",
+        "build-demo": "vue-cli-service build --prefix docs --dest docs",
+        "lint:js": "eslint --fix --ext .js,.vue --ignore-path .eslintignore .",
+        "lint:style": "stylelint **/*.{vue,css,scss} --ignore-path .gitignore --fix --config ./.stylelintrc-format",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "main": "./dist/vue-slide-unlock.umd.min.js",
+    "dependencies": {
+        "core-js": "^3.20.3",
+        "easy-ease": "^1.0.9",
+        "vue": "^3.2.29"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~5.0.0-rc.2",
+        "@vue/cli-plugin-eslint": "~5.0.0-rc.2",
+        "@vue/cli-service": "~5.0.0-rc.2",
+        "@vue/compiler-sfc": "^3.2.29",
+        "@vue/eslint-config-standard": "^6.1.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^8.7.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-standard": "^5.0.0",
+        "eslint-plugin-vue": "^8.4.0",
+        "lint-staged": "^12.3.2",
+        "postcss-html": "^1.3.0",
+        "sass": "^1.49.0",
+        "sass-loader": "^10.2.1",
+        "stylelint": "^14.3.0",
+        "stylelint-config-property-sort-order-smacss": "^8.0.0",
+        "stylelint-config-standard-scss": "^3.0.0",
+        "stylelint-order": "^5.0.0",
+        "stylelint-scss": "^4.1.0"
+    },
+    "bugs": {
+        "url": "https://github.com/joseph2/vue-slide-unlock/issues"
+    },
+    "homepage": "https://joseph2.github.io/vue-slide-unlock/",
     "keywords": [
         "vue",
         "slide",
         "swipe",
         "unlock"
     ],
+    "license": "MIT",
+    "packageManager": "yarn@3.1.1",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/joseph2/vue-slide-unlock.git"
-    },
-    "bugs": {
-        "url": "https://github.com/joseph2/vue-slide-unlock/issues"
-    },
-    "homepage": "https://joseph2.github.io/vue-slide-unlock/",
-    "main": "./dist/vue-slide-unlock.umd.min.js",
-    "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build --target lib --name vue-slide-unlock src/lib.js",
-        "build-demo": "vue-cli-service build --prefix docs --dest docs",
-        "lint:js": "vue-cli-service lint",
-        "lint:style": "stylelint **/*.{vue,css,scss} --ignore-path .stylelintignore --fix --config ./.stylelintrc-format",
-        "lint": "npm run lint:js && npm run lint:style",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "dependencies": {
-        "core-js": "^3.15.2",
-        "easy-ease": "^1.0.9",
-        "vue": "^3.1.2"
-    },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "^4.5.13",
-        "@vue/cli-plugin-eslint": "^4.5.13",
-        "@vue/cli-service": "^4.5.13",
-        "@vue/compiler-sfc": "^3.1.2",
-        "babel-eslint": "^10.1.0",
-        "eslint": "^7.29.0",
-        "eslint-plugin-import": "^2.23.4",
-        "eslint-plugin-promise": "^5.1.0",
-        "eslint-plugin-vue": "^7.12.1",
-        "lint-staged": "^11.0.0",
-        "sass": "^1.35.1",
-        "sass-loader": "^10.2.0",
-        "stylelint": "^13.13.1",
-        "stylelint-config-property-sort-order-smacss": "^7.1.0",
-        "stylelint-config-standard": "^22.0.0",
-        "stylelint-order": "^4.1.0",
-        "stylelint-scss": "^3.19.0"
-    },
-    "packageManager": "yarn@3.1.1"
+    }
 }

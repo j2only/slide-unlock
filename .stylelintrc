@@ -1,12 +1,12 @@
 {
-    extends: [
-        "stylelint-config-standard"
+    "extends": [
+        "stylelint-config-standard-scss"
     ],
-    plugins: [
+    "plugins": [
         "stylelint-scss"
     ],
-    rules: {
-        indentation: 4,
+    "rules": {
+        "indentation": 4,
         "rule-empty-line-before": null,
         "at-rule-empty-line-before": null,
         "at-rule-no-unknown": null,
@@ -16,10 +16,10 @@
             true,
             {
                 "ignore": [
-                "custom-elements"
+                    "custom-elements"
                 ]
             }
         ],
-        "scss/selector-no-redundant-nesting-selector": true,
+        "scss/selector-no-redundant-nesting-selector": true
     }
 }

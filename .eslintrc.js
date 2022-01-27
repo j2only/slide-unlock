@@ -3,11 +3,10 @@ module.exports = {
     env: {
         node: true
     },
-    "plugins": ["import", "promise"],
-    "extends": [
+    extends: [
+        "plugin:vue/vue3-essential",
         "eslint:recommended",
-        "plugin:vue/recommended",
-        "plugin:vue/vue3-essential"
+        "@vue/standard"
     ],
     parserOptions: {
         ecmaVersion: 2020
@@ -91,10 +90,11 @@ module.exports = {
         "vue/max-attributes-per-line": [
             "error",
             {
-                singleline: 4,
+                singleline: {
+                    max: 4
+                },
                 multiline: {
-                    max: 1,
-                    allowFirstLine: false
+                    max: 1
                 }
             }
         ],
@@ -127,6 +127,9 @@ module.exports = {
             ],
             rules: {
                 "max-len": 0
+            },
+            env: {
+                jest: true
             }
         }
     ]

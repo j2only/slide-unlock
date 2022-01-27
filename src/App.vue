@@ -201,115 +201,106 @@ export default {
             text: "slide to unlock",
             successText: "success",
             width: 400,
-            height: 80,
-            TextSize: this.textSize,
-            PaddingSize: this.paddingSize,
-            Background: this.background,
-            ProgressBarBg: this.progressBarBg,
-            CompletedBg: this.completedBg,
-            HandlerBg: this.handlerBg,
-            TextColor: this.textColor,
-            TextCompleteColor: this.textCompleteColor,
-            HandlerIcon: this.handlerIcon
+            height: 80
         }
     },
     computed: {
-        getShape() {
+        getShape () {
             return this.isCircle === "true"
         },
-        getAutoWidth() {
+        getAutoWidth () {
             return this.autoWidth === "true"
         },
-        getDisabled() {
+        getDisabled () {
             return this.isDisabled === "true"
         },
-        getNoAnimated() {
+        getNoAnimated () {
             return this.isNoAnimate === "true"
         },
         textSize: {
-            set: function(value) {
+            set: function (value) {
                 this.TextSize = value
                 document.documentElement.style.setProperty("--su-size-text", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-size-text").trim()
             }
         },
         paddingSize: {
-            set: function(value) {
+            set: function (value) {
                 this.PaddingSize = value
                 document.documentElement.style.setProperty("--su-size-padding", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding").trim()
             }
         },
         background: {
-            set: function(value) {
+            set: function (value) {
                 this.Background = value
                 document.documentElement.style.setProperty("--su-color-bg", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-bg").trim()
             }
         },
         progressBarBg: {
-            set: function(value) {
+            set: function (value) {
                 this.ProgressBarBg = value
                 document.documentElement.style.setProperty("--su-color-progress-normal-bg", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-normal-bg").trim()
             }
         },
         completedBg: {
-            set: function(value) {
+            set: function (value) {
                 this.CompletedBg = value
                 document.documentElement.style.setProperty("--su-color-progress-complete-bg", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg").trim()
             }
         },
         handlerBg: {
-            set: function(value) {
+            set: function (value) {
                 this.HandlerBg = value
                 document.documentElement.style.setProperty("--su-color-handler-bg", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg").trim()
             }
         },
         textColor: {
-            set: function(value) {
+            set: function (value) {
                 this.TextColor = value
                 document.documentElement.style.setProperty("--su-color-text-normal", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal").trim()
             }
         },
         textCompleteColor: {
-            set: function(value) {
+            set: function (value) {
                 this.TextCompleteColor = value
                 document.documentElement.style.setProperty("--su-color-text-complete", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete").trim()
             }
         },
         handlerIcon: {
-            set: function(value) {
+            set: function (value) {
                 this.HandlerIcon = value
                 document.documentElement.style.setProperty("--su-icon-handler", value)
             },
-            get: function() {
+            get: function () {
                 return getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler").trim()
             }
         }
     },
     methods: {
-        resetComponent() {
+        resetComponent () {
             this.$refs.vueslideunlock.reset()
         }
     }
@@ -317,7 +308,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 :root {
     --color-bg: #FEFEFE;
     --color-lightestgray: #F7F7F7;
@@ -333,8 +323,8 @@ body,
     margin-top: 2.5rem;
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
-    text-rendering: optimizeLegibility;
+    font-family: "Helvetica neue", Helvetica, Arial, sans-serif;
+    text-rendering: optimizelegibility;
 }
 .container {
     width: 60rem;
@@ -362,7 +352,7 @@ h4 {
     font-style: normal;
     font-weight: 800;
     letter-spacing: -1px;
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizelegibility;
 }
 h1 {
     font-size: 1.75rem;
@@ -377,19 +367,18 @@ section {
         text-align: center;
     }
 }
-
 .btn {
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-text);
     padding: 0.5rem 1.25rem;
-    border-radius: 0.25rem;
-    color: var(--color-text);
-    font-weight: 500;
-    font-size: 0.875rem;
     transition: all 0.2s ease;
+    border: 1px solid var(--color-text);
+    border-radius: 0.25rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    font-weight: 500;
     &:hover {
-        background-color: var(--color-lightestgray);
         border-color: var(--color-theme);
+        background-color: var(--color-lightestgray);
         color: var(--color-theme);
         cursor: pointer;
     }
@@ -398,7 +387,6 @@ section {
         color: var(--color-bg);
     }
 }
-
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -423,9 +411,9 @@ section {
         input {
             box-sizing: border-box;
         }
-        input[type=text],
-        input[type=color],
-        input[type=number] {
+        input[type="text"],
+        input[type="color"],
+        input[type="number"] {
             display: block;
             position: relative;
             width: 100%;
@@ -458,7 +446,7 @@ section {
                 }
             }
         }
-        input[type=color] {
+        input[type="color"] {
             padding: 0;
             border: none;
             cursor: pointer;
