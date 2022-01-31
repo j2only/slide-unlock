@@ -1,6 +1,6 @@
 {
     "name": "vue-slide-unlock",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Vue.js 3.x 'slide to unlock' component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": {
         "name": "Anton Zolotov",
@@ -27,7 +27,7 @@
         "@vue/cli-service": "~5.0.0-rc.2",
         "@vue/compiler-sfc": "^3.2.29",
         "babel-eslint": "^10.1.0",
-        "eslint": "^8.7.0",
+        "eslint": "^8.8.0",
         "eslint-plugin-import": "^2.25.4",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^6.0.0",
