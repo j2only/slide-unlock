@@ -32,11 +32,11 @@
 
             <section class="demo-section">
                 <slide-unlock
-                    ref="vueslideunlock"
-                    :auto-width="getAutoWidth"
-                    :circle="getShape"
-                    :disabled="getDisabled"
-                    :noanimate="getNoAnimated"
+                    ref="vueSlideUnlockRef"
+                    :auto-width="autoWidth"
+                    :circle="isCircle"
+                    :disabled="isDisabled"
+                    :noanimate="isNoAnimate"
                     :width="width"
                     :height="height"
                     :text="text"
@@ -55,8 +55,6 @@
                                 id="autoWidth"
                                 v-model="autoWidth"
                                 type="checkbox"
-                                true-value="true"
-                                false-value="false"
                             >
                             autoWidth
                         </label>
@@ -67,8 +65,6 @@
                                 id="isCircle"
                                 v-model="isCircle"
                                 type="checkbox"
-                                true-value="true"
-                                false-value="false"
                             >
                             isCircle
                         </label>
@@ -79,8 +75,6 @@
                                 id="isDisabled"
                                 v-model="isDisabled"
                                 type="checkbox"
-                                true-value="true"
-                                false-value="false"
                             >
                             isDisabled
                         </label>
@@ -91,8 +85,6 @@
                                 id="isNoAnimate"
                                 v-model="isNoAnimate"
                                 type="checkbox"
-                                true-value="true"
-                                false-value="false"
                             >
                             isNoAnimate
                         </label>
@@ -102,7 +94,7 @@
                 <div class="grid">
                     <div class="item">
                         <label>width (px)</label>
-                        <input v-model="width" type="number" :disabled="autoWidth === 'true'">
+                        <input v-model="width" type="number" :disabled="autoWidth">
                     </div>
                     <div class="item">
                         <label>height (px)</label>
@@ -122,12 +114,12 @@
                 <h2>Options (CSS Variables)</h2>
                 <div class="grid">
                     <div class="item">
-                        <label>textSize</label>
-                        <input v-model="textSize" type="text">
+                        <label>textSize (px)</label>
+                        <input v-model="textSize" type="number">
                     </div>
                     <div class="item">
-                        <label>paddingSize</label>
-                        <input v-model="paddingSize" type="text">
+                        <label>paddingSize (px)</label>
+                        <input v-model="paddingSize" type="number">
                     </div>
                 </div>
                 <div class="grid is-1">
@@ -177,7 +169,7 @@
         </div>
         <footer>
             <div class="container">
-                <div> &copy; 2021 Anton Zolotov </div>
+                <div> &copy; 2022 Anton Zolotov </div>
                 <a href="https://github.com/joseph2">github.com</a>
             </div>
         </footer>
@@ -185,126 +177,135 @@
 </template>
 
 <script>
+import { defineComponent, ref, computed } from "vue"
 import SlideUnlock from "@/components/SlideUnlock"
 
-export default {
+export default defineComponent({
     name: "App",
     components: {
         SlideUnlock
     },
-    data () {
+    setup() {
+        const getCssVar = (name) => {
+            return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+        }
+        const setCssVar = (name, value) => {
+            document.documentElement.style.setProperty(name, value)
+        }
+
+
+        const autoWidth = ref(true)
+        const isCircle = ref(true)
+        const isDisabled = ref(false)
+        const isNoAnimate = ref(false)
+        const text = ref("slide to unlock")
+        const successText = ref("success")
+        const width = ref(400)
+        const height = ref(80)
+
+        const textSize = computed({
+            get() {
+                const rawValue = getCssVar("--su-size-text")
+                return rawValue.slice(0, rawValue.length - 2)
+            },
+            set(value) {
+                setCssVar("--su-size-text", `${value}px`)
+            }
+        })
+        const paddingSize = computed({
+            get() {
+                const rawValue = getCssVar("--su-size-padding")
+                return rawValue.slice(0, rawValue.length - 2)
+            },
+            set(value) {
+                setCssVar("--su-size-padding", `${value}px`)
+            }
+        })
+        const background = computed({
+            get() {
+                return getCssVar("--su-color-bg")
+            },
+            set(value) {
+                setCssVar("--su-color-bg", value)
+            }
+        })
+        const progressBarBg = computed({
+            get() {
+                return getCssVar("--su-color-progress-normal-bg")
+            },
+            set(value) {
+                setCssVar("--su-color-progress-normal-bg", value)
+            }
+        })
+        const completedBg = computed({
+            get() {
+                return getCssVar("--su-color-progress-complete-bg")
+            },
+            set(value) {
+                setCssVar("--su-color-progress-complete-bg", value)
+            }
+        })
+        const handlerBg = computed({
+            get() {
+                return getCssVar("--su-color-handler-bg")
+            },
+            set(value) {
+                setCssVar("--su-color-handler-bg", value)
+            }
+        })
+        const textColor = computed({
+            get() {
+                return getCssVar("--su-color-text-normal")
+            },
+            set(value) {
+                setCssVar("--su-color-text-normal", value)
+            }
+        })
+        const textCompleteColor = computed({
+            get() {
+                return getCssVar("--su-color-text-complete")
+            },
+            set(value) {
+                setCssVar("--su-color-text-complete", value)
+            }
+        })
+        const handlerIcon = computed({
+            get() {
+                return getCssVar("--su-icon-handler")
+            },
+            set(value) {
+                setCssVar("--su-icon-handler", value)
+            }
+        })
+
+        const vueSlideUnlockRef = ref()
+        const resetComponent = () => {
+            vueSlideUnlockRef.value.reset()
+        }
+
         return {
-            autoWidth: "true",
-            isCircle: "true",
-            isDisabled: "false",
-            isNoAnimate: "false",
-            text: "slide to unlock",
-            successText: "success",
-            width: 400,
-            height: 80
-        }
-    },
-    computed: {
-        getShape () {
-            return this.isCircle === "true"
-        },
-        getAutoWidth () {
-            return this.autoWidth === "true"
-        },
-        getDisabled () {
-            return this.isDisabled === "true"
-        },
-        getNoAnimated () {
-            return this.isNoAnimate === "true"
-        },
-        textSize: {
-            set: function (value) {
-                this.TextSize = value
-                document.documentElement.style.setProperty("--su-size-text", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-text").trim()
-            }
-        },
-        paddingSize: {
-            set: function (value) {
-                this.PaddingSize = value
-                document.documentElement.style.setProperty("--su-size-padding", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding").trim()
-            }
-        },
-        background: {
-            set: function (value) {
-                this.Background = value
-                document.documentElement.style.setProperty("--su-color-bg", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-bg").trim()
-            }
-        },
-        progressBarBg: {
-            set: function (value) {
-                this.ProgressBarBg = value
-                document.documentElement.style.setProperty("--su-color-progress-normal-bg", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-normal-bg").trim()
-            }
-        },
-        completedBg: {
-            set: function (value) {
-                this.CompletedBg = value
-                document.documentElement.style.setProperty("--su-color-progress-complete-bg", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-progress-complete-bg").trim()
-            }
-        },
-        handlerBg: {
-            set: function (value) {
-                this.HandlerBg = value
-                document.documentElement.style.setProperty("--su-color-handler-bg", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-handler-bg").trim()
-            }
-        },
-        textColor: {
-            set: function (value) {
-                this.TextColor = value
-                document.documentElement.style.setProperty("--su-color-text-normal", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-normal").trim()
-            }
-        },
-        textCompleteColor: {
-            set: function (value) {
-                this.TextCompleteColor = value
-                document.documentElement.style.setProperty("--su-color-text-complete", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-color-text-complete").trim()
-            }
-        },
-        handlerIcon: {
-            set: function (value) {
-                this.HandlerIcon = value
-                document.documentElement.style.setProperty("--su-icon-handler", value)
-            },
-            get: function () {
-                return getComputedStyle(document.documentElement).getPropertyValue("--su-icon-handler").trim()
-            }
-        }
-    },
-    methods: {
-        resetComponent () {
-            this.$refs.vueslideunlock.reset()
+            autoWidth,
+            isCircle,
+            isDisabled,
+            isNoAnimate,
+            text,
+            successText,
+            width,
+            height,
+            textSize,
+            paddingSize,
+            background,
+            progressBarBg,
+            completedBg,
+            handlerBg,
+            textColor,
+            textCompleteColor,
+            handlerIcon,
+            vueSlideUnlockRef,
+            resetComponent
         }
     }
-}
+})
 </script>
 
 <style lang="scss">
