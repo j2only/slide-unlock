@@ -1,12 +1,12 @@
 <template>
     <div
-        ref="slider"
+        id="slideunlock"
         class="slideunlock"
         :class="{
             'is-disabled': disabled,
             'is-noanimate': noanimate,
             'is-circle': circle,
-            'is-complete': IsComplete
+            'is-complete': Slider.IsComplete
         }"
         :style="slideUnlockStyle"
         @mousemove="slideMoving"
@@ -15,12 +15,11 @@
         @touchend="slideFinish"
     >
         <div class="slideunlock-progressbar" :style="progressBarStyle" />
-        <div class="slideunlock-text" :style="Text">
+        <div class="slideunlock-text" :style="{ opacity: Slider.TextOpacity }">
             {{ message }}
         </div>
 
         <div
-            ref="handler"
             class="slideunlock-handler"
             :style="handlerStyle"
             @mousedown="slideStart"
@@ -30,7 +29,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue"
+import { defineComponent, reactive, computed, watch } from "vue"
 import ease from "easy-ease"
 
 function debounce (func, wait, immediate) {
@@ -84,142 +83,154 @@ export default defineComponent({
             default: false
         }
     },
-    data () {
-        return {
+    setup(props, { emit }) {
+        const Slider = reactive({
             CanMove: false,
             IsComplete: false,
             StartPositionWindow: 0,
             HandlerPosition: 0,
-            Handler: {
-                left: 0
-            },
-            Progress: {
-                width: 0
-            },
-            Text: {
-                opacity: 1
-            }
-        }
-    },
-    computed: {
-        slideUnlockStyle () {
+            ProgressWidth: 0,
+            TextOpacity: 1
+        })
+
+
+        const slideUnlockStyle = computed(() => {
             return {
-                width: this.autoWidth ? "auto" : this.width + "px",
-                height: this.height + "px"
+                width: props.autoWidth ? "auto" : props.width + "px",
+                height: props.height + "px"
             }
-        },
-        progressBarStyle () {
+        })
+
+        const progressBarStyle = computed(() => {
             return {
-                width: this.Progress.width,
-                height: this.height + "px",
-                background: this.Progress.background,
-                borderRadius: this.circle
-                    ? !this.IsComplete
-                        ? (this.height / 2 + "px 0 0 " + this.height / 2 + "px")
-                        : (this.height / 2 + "px ")
+                width: Slider.ProgressWidth + "px",
+                height: props.height + "px",
+                borderRadius: props.circle
+                    ? !Slider.IsComplete
+                        ? (props.height / 2 + "px 0 0 " + props.height / 2 + "px")
+                        : (props.height / 2 + "px ")
                     : 0
             }
-        },
-        handlerStyle () {
+        })
+
+        const handlerStyle = computed(() => {
             return {
-                left: this.Handler.left,
-                width: this.height + "px",
-                height: this.height + "px"
+                left: Slider.HandlerPosition + "px",
+                width: props.height + "px",
+                height: props.height + "px"
             }
-        },
-        message () {
-            return this.IsComplete ? this.successText : this.text
-        },
-        sliderWidth () {
-            return this.autoWidth
-                ? this.$refs.slider.clientWidth - (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding").replace("px", ""), 10) * 2)
-                : this.width
-        }
-    },
-    watch: {
-        autoWidth () {
-            if (this.IsComplete) {
-                const THIS = this
+        })
+
+        const message = computed(() => {
+            return Slider.IsComplete ? props.successText : props.text
+        })
+
+        const sliderWidth = computed(() => {
+            return props.autoWidth
+                ? document.getElementById("slideunlock").clientWidth - (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--su-size-padding").replace("px", ""), 10) * 2)
+                : props.width
+        })
+
+
+        watch(() => props.autoWidth, () => {
+            if (Slider.IsComplete) {
                 setTimeout(() => {
-                    THIS.Progress.width = THIS.sliderWidth + "px"
+                    Slider.ProgressWidth = sliderWidth.value
                 }, 1)
             }
-        },
-        width () {
-            if (this.IsComplete) {
-                this.Progress.width = this.sliderWidth + "px"
+        })
+
+        watch(() => props.width, () => {
+            if (Slider.IsComplete) {
+                Slider.ProgressWidth = sliderWidth.value
             }
-        }
-    },
-    methods: {
-        fadeText: debounce(function () {
-            const ReversePercent = ((this.sliderWidth - this.height) * (100 / this.HandlerPosition)) / 1000 - 0.1
-            if (this.CanMove) { this.Text.opacity = ReversePercent }
-        }, 5),
-        slideStart (e) {
-            const THIS = this
-            if (!this.IsComplete) {
-                this.CanMove = true
-                this.StartPositionWindow = (e.pageX || e.touches[0].pageX) - parseInt(this.$refs.handler.style.left.replace("px", ""), 10)
+        })
+
+
+        const fadeText = debounce(function () {
+            const ReversePercent = ((sliderWidth.value - props.height) * (100 / Slider.HandlerPosition)) / 1000 - 0.1
+            if (Slider.CanMove) { Slider.TextOpacity = ReversePercent }
+        }, 5)
+
+        const slideStart = (e) => {
+            if (!Slider.IsComplete) {
+                Slider.CanMove = true
+                Slider.StartPositionWindow = (e.pageX || e.touches[0].pageX) - Slider.HandlerPosition
             }
             document.onmousemove = (ev) => {
                 const el = ev
-                THIS.slideMoving(el)
+                slideMoving(el)
                 return false
             }
             document.onmouseup = (ev) => {
                 const el = ev
-                THIS.slideFinish(el)
+                slideFinish(el)
                 document.onmousemove = null
                 return false
             }
-        },
-        slideMoving (e) {
-            if (this.CanMove && !this.IsComplete) {
-                this.HandlerPosition = (e.pageX || e.touches[0].pageX) - this.StartPositionWindow
-                if (this.HandlerPosition > 0 && this.HandlerPosition <= (this.sliderWidth - this.height)) {
-                    this.Handler.left = this.HandlerPosition + "px"
-                    this.Progress.width = (this.HandlerPosition + this.height / 2) + "px"
-                    this.fadeText()
+        }
+
+        const slideMoving = (e) => {
+            if (Slider.CanMove && !Slider.IsComplete) {
+                Slider.HandlerPosition = (e.pageX || e.touches[0].pageX) - Slider.StartPositionWindow
+                if (Slider.HandlerPosition > 0 && Slider.HandlerPosition <= (sliderWidth.value - props.height)) {
+                    Slider.ProgressWidth = (Slider.HandlerPosition + props.height / 2)
+                    fadeText()
                 }
-                else if (this.HandlerPosition > (this.sliderWidth - this.height)) {
-                    this.Handler.left = (this.sliderWidth - this.height) + "px"
-                    this.Progress.width = (this.sliderWidth) + "px"
-                    this.passVerify()
+                else if (Slider.HandlerPosition > (sliderWidth.value - props.height)) {
+                    Slider.HandlerPosition = (sliderWidth.value - props.height)
+                    Slider.ProgressWidth = (sliderWidth.value)
+                    passVerify()
                 }
             }
-        },
-        slideFinish (e) {
-            if (this.CanMove && !this.IsComplete) {
-                this.HandlerPosition = (e.pageX || e.changedTouches[0].pageX) - this.StartPositionWindow
-                if (this.HandlerPosition < (this.sliderWidth - this.height)) {
+        }
+
+        const slideFinish = (e) => {
+            if (Slider.CanMove && !Slider.IsComplete) {
+                Slider.HandlerPosition = (e.pageX || e.changedTouches[0].pageX) - Slider.StartPositionWindow
+                if (Slider.HandlerPosition < (sliderWidth.value - props.height)) {
                     ease({
-                        startValue: this.HandlerPosition,
+                        startValue: Slider.HandlerPosition,
                         endValue: 0,
                         durationMs: 200,
                         onStep: value => {
-                            this.Handler.left = value + "px"
-                            this.Progress.width = value + (this.height / 2) + "px"
+                            Slider.HandlerPosition = value
+                            Slider.ProgressWidth = value + (props.height / 2)
                         }
                     })
-                    this.Text.opacity = 1
+                    Slider.TextOpacity = 1
                 }
-                this.CanMove = false
+                Slider.CanMove = false
             }
-        },
-        passVerify () {
-            this.IsComplete = true
-            this.CanMove = false
-            this.$emit("completed")
-        },
-        reset () {
-            this.CanMove = false
-            this.IsComplete = false
-            this.StartPositionWindow = 0
-            this.HandlerPosition = 0
-            this.Handler.left = 0
-            this.Progress.width = 0
-            this.Text.opacity = 1
+        }
+
+        const passVerify = () => {
+            Slider.IsComplete = true
+            Slider.CanMove = false
+            emit("completed")
+        }
+
+        const reset = () => {
+            Slider.CanMove = false
+            Slider.IsComplete = false
+            Slider.StartPositionWindow = 0
+            Slider.HandlerPosition = 0
+            Slider.ProgressWidth = 0
+            Slider.TextOpacity = 1
+        }
+
+
+        return {
+            Slider,
+            slideUnlockStyle,
+            progressBarStyle,
+            handlerStyle,
+            message,
+            sliderWidth,
+            slideStart,
+            slideMoving,
+            slideFinish,
+            reset
         }
     }
 })

@@ -24,7 +24,7 @@
             <section class="head">
                 <img class="logo" alt="Vue logo" src="./assets/logo.png">
 
-                <h1>Vue.js slide to unlock component</h1>
+                <h1>Vue.js 3.x "slide to unlock" component</h1>
                 <div class="description">
                     <b>Protect users from accidental clicks for Vue.js</b>
                 </div>
@@ -42,6 +42,7 @@
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
+                    @completed="done()"
                 />
             </section>
 
@@ -283,6 +284,10 @@ export default defineComponent({
             vueSlideUnlockRef.value.reset()
         }
 
+        const done = () => {
+            console.log("DONE")
+        }
+
         return {
             autoWidth,
             isCircle,
@@ -302,7 +307,8 @@ export default defineComponent({
             textCompleteColor,
             handlerIcon,
             vueSlideUnlockRef,
-            resetComponent
+            resetComponent,
+            done
         }
     }
 })
