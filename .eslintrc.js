@@ -5,7 +5,9 @@ module.exports = {
     },
     extends: [
         "plugin:vue/vue3-essential",
-        "eslint:recommended"
+        "eslint:recommended",
+        "@vue/standard",
+        "@vue/typescript/recommended"
     ],
     parserOptions: {
         ecmaVersion: 2020
@@ -26,6 +28,7 @@ module.exports = {
         "max-len": ["error", { code: 160, ignoreRegExpLiterals: true, ignoreStrings: true }],
         "func-names": ["error", "never"],
         "prefer-arrow-callback": 0,
+        "space-before-function-paren": ["error", "never"],
         "keyword-spacing": [
             "error",
             {

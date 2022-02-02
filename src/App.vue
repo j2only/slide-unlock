@@ -177,9 +177,9 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, computed } from "vue"
-import SlideUnlock from "@/components/SlideUnlock"
+import SlideUnlock from "@/components/SlideUnlock.vue"
 
 export default defineComponent({
     name: "App",
@@ -187,13 +187,12 @@ export default defineComponent({
         SlideUnlock
     },
     setup() {
-        const getCssVar = (name) => {
+        const getCssVar = (name: string) => {
             return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
         }
-        const setCssVar = (name, value) => {
-            document.documentElement.style.setProperty(name, value)
+        const setCssVar = (name: string, value: number | string) => {
+            document.documentElement.style.setProperty(name, value.toString())
         }
-
 
         const autoWidth = ref(true)
         const isCircle = ref(true)
@@ -205,20 +204,20 @@ export default defineComponent({
         const height = ref(80)
 
         const textSize = computed({
-            get() {
+            get(): number {
                 const rawValue = getCssVar("--su-size-text")
-                return rawValue.slice(0, rawValue.length - 2)
+                return parseInt(rawValue.slice(0, rawValue.length - 2), 10)
             },
-            set(value) {
+            set(value: number) {
                 setCssVar("--su-size-text", `${value}px`)
             }
         })
         const paddingSize = computed({
-            get() {
+            get(): number {
                 const rawValue = getCssVar("--su-size-padding")
-                return rawValue.slice(0, rawValue.length - 2)
+                return parseInt(rawValue.slice(0, rawValue.length - 2), 10)
             },
-            set(value) {
+            set(value: number) {
                 setCssVar("--su-size-padding", `${value}px`)
             }
         })
@@ -226,7 +225,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-bg")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-color-bg", value)
             }
         })
@@ -234,7 +233,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-progress-normal-bg")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-color-progress-normal-bg", value)
             }
         })
@@ -242,7 +241,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-progress-complete-bg")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-color-progress-complete-bg", value)
             }
         })
@@ -250,7 +249,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-handler-bg")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-color-handler-bg", value)
             }
         })
@@ -258,7 +257,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-text-normal")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-color-text-normal", value)
             }
         })
@@ -266,7 +265,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-text-complete")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-color-text-complete", value)
             }
         })
@@ -274,7 +273,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-icon-handler")
             },
-            set(value) {
+            set(value: string) {
                 setCssVar("--su-icon-handler", value)
             }
         })
