@@ -13,7 +13,7 @@
         "build-demo": "vue-cli-service build --prefix docs --dest docs",
         "lint:js": "eslint --fix --ext .js,.vue --ignore-path .eslintignore .",
         "lint:style": "stylelint **/*.{vue,css,scss} --ignore-path .gitignore --fix --config ./.stylelintrc-format",
-        "test": "vue-cli-service test:unit"
+        "test": "vue-cli-service test:unit --coverage"
     },
     "main": "./dist/vue-slide-unlock.umd.min.js",
     "dependencies": {

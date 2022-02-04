@@ -2,6 +2,7 @@
 node_modules
 dist/demo.html
 docs
+coverage
 
 .yarn/*
 !.yarn/patches
