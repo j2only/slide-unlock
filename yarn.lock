@@ -9568,6 +9568,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "nanoid@npm:3.3.1"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 4ef0969e1bbe866fc223eb32276cbccb0961900bfe79104fa5abe34361979dead8d0e061410a5c03bc3d47455685adf32c09d6f27790f4a6898fb51f7df7ec86
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -10678,6 +10687,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.4.8":
+  version: 8.4.8
+  resolution: "postcss@npm:8.4.8"
+  dependencies:
+    nanoid: ^3.3.1
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 8e42def1ea98a4ac800d2b8937b19c83c6722da6c39ded72b1877eb743922f51b6e93be3667284b685ac18e8b583f21d97f24e0a73161c70fe8dc6901e614b87
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -11255,16 +11275,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.49.8":
-  version: 1.49.8
-  resolution: "sass@npm:1.49.8"
+"sass@npm:^1.49.9":
+  version: 1.49.9
+  resolution: "sass@npm:1.49.9"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: ff4051c11223cb6e56ae62fa71448ed65b402949facfbd831f9781244eece9f1d22be45e61af8e0d0fbe186857de2613b07d9247b036ac2326c24e6ebd19bbbe
+  checksum: e5653e3499274c5127dcb5c9e7c5f6930378fc61764d999a5d8965782e027181ed09714f94836dec74ef55e3a858107fe6c571954c0cab0ad0be5ab8e586829c
   languageName: node
   linkType: hard
 
@@ -12071,9 +12091,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^14.5.1":
-  version: 14.5.1
-  resolution: "stylelint@npm:14.5.1"
+"stylelint@npm:^14.5.3":
+  version: 14.5.3
+  resolution: "stylelint@npm:14.5.3"
   dependencies:
     balanced-match: ^2.0.0
     colord: ^2.9.2
@@ -12118,7 +12138,7 @@ __metadata:
     write-file-atomic: ^4.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: 200b25897e1561ef17ef31064971ba11f50afbd9cb9aa6e98bd66efc1a74bd06b91b9c64c307d7f96f5fff50d76531f3082f6680fed06bbc6933c503543c27e3
+  checksum: 5fadb61263e003fe791d6c8a31c48825e015a5fee909b0a484baad8d4a46622425409f18d2734a01e91405c825a5b3ccad943ed2298cd4f7df4a0a605c4d0292
   languageName: node
   linkType: hard
 
@@ -12865,11 +12885,11 @@ __metadata:
     eslint-plugin-vue: ^8.5.0
     jest: ^27.5.1
     lodash.debounce: ^4.0.8
-    postcss: ^8.4.6
+    postcss: ^8.4.8
     postcss-html: ^1.3.0
-    sass: ^1.49.8
+    sass: ^1.49.9
     sass-loader: ^10.2.1
-    stylelint: ^14.5.1
+    stylelint: ^14.5.3
     stylelint-config-property-sort-order-smacss: ^9.0.0
     stylelint-config-standard-scss: ^3.0.0
     stylelint-order: ^5.0.0
