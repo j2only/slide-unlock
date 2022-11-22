@@ -4160,10 +4160,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["async", [
-        ["npm:2.6.3", {
-          "packageLocation": "./.yarn/cache/async-npm-2.6.3-2de4150248-5e5561ff8f.zip/node_modules/async/",
+        ["npm:2.6.4", {
+          "packageLocation": "./.yarn/cache/async-npm-2.6.4-3155e80151-a52083fb32.zip/node_modules/async/",
           "packageDependencies": [
-            ["async", "npm:2.6.3"],
+            ["async", "npm:2.6.4"],
             ["lodash", "npm:4.17.21"]
           ],
           "linkType": "HARD",
@@ -9957,7 +9957,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/portfinder-npm-1.0.28-12c37407ab-91fef602f1.zip/node_modules/portfinder/",
           "packageDependencies": [
             ["portfinder", "npm:1.0.28"],
-            ["async", "npm:2.6.3"],
+            ["async", "npm:2.6.4"],
             ["debug", "virtual:12c37407ab12ae73a24baf32ea7a908f64cb1e2490585bd0fa776dedc35e3c74386451dc3764b684ba14eb4e2449810eff25a37c63df7ccf0fb8ddea5253d3d1#npm:3.2.7"],
             ["mkdirp", "npm:0.5.5"]
           ],
