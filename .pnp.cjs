@@ -4250,7 +4250,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/babel__core", null],
             ["@types/webpack", null],
             ["find-cache-dir", "npm:3.3.2"],
-            ["loader-utils", "npm:1.4.0"],
+            ["loader-utils", "npm:1.4.2"],
             ["make-dir", "npm:3.1.0"],
             ["schema-utils", "npm:2.7.1"],
             ["webpack", "virtual:c92d4f6a1580ae054c5fa6075ec784070e0ea2be44d41cdbb3d70bf696700d3173d59c15ccd7a3abd4cc04f357a9047f8bad9d23244b5ceed0aab79b15932e6a#npm:5.67.0"]
@@ -8615,10 +8615,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["loader-utils", [
-        ["npm:1.4.0", {
-          "packageLocation": "./.yarn/cache/loader-utils-npm-1.4.0-a56254a277-d150b15e7a.zip/node_modules/loader-utils/",
+        ["npm:1.4.2", {
+          "packageLocation": "./.yarn/cache/loader-utils-npm-1.4.2-b4537b2f88-eb6fb622ef.zip/node_modules/loader-utils/",
           "packageDependencies": [
-            ["loader-utils", "npm:1.4.0"],
+            ["loader-utils", "npm:1.4.2"],
             ["big.js", "npm:5.2.2"],
             ["emojis-list", "npm:3.0.0"],
             ["json5", "npm:1.0.1"]
@@ -13073,7 +13073,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cache-loader", null],
             ["css-loader", "virtual:100645011939837269e52dc25d977b9258a65d1e97605544ce7702af440d19f636002d3ef32f711c568451d15fcd981f7baec35b6135aaed9e5da480bbec232f#npm:6.5.1"],
             ["hash-sum", "npm:1.0.2"],
-            ["loader-utils", "npm:1.4.0"],
+            ["loader-utils", "npm:1.4.2"],
             ["vue-hot-reload-api", "npm:2.3.4"],
             ["vue-style-loader", "npm:4.1.3"],
             ["vue-template-compiler", null],
@@ -13149,7 +13149,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["vue-style-loader", "npm:4.1.3"],
             ["hash-sum", "npm:1.0.2"],
-            ["loader-utils", "npm:1.4.0"]
+            ["loader-utils", "npm:1.4.2"]
           ],
           "linkType": "HARD",
         }]
