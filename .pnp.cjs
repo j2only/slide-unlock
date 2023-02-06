@@ -6563,7 +6563,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-es", "virtual:93c2d9d4ffafeade37996b1f53af1e8b8d76ba5e2a1b1ec5e7dd7489f291ae5e48a7d9d85681792f352537cb91b007dae24811d98b4278223fbdcf8ba121ba46#npm:3.0.1"],
             ["eslint-utils", "npm:2.1.0"],
             ["ignore", "npm:5.2.0"],
-            ["minimatch", "npm:3.0.4"],
+            ["minimatch", "npm:3.1.2"],
             ["resolve", "patch:resolve@npm%3A1.22.0#~builtin<compat/resolve>::version=1.22.0&hash=07638b"],
             ["semver", "npm:6.3.0"]
           ],
@@ -7376,7 +7376,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fs.realpath", "npm:1.0.0"],
             ["inflight", "npm:1.0.6"],
             ["inherits", "npm:2.0.4"],
-            ["minimatch", "npm:3.0.4"],
+            ["minimatch", "npm:3.1.2"],
             ["once", "npm:1.4.0"],
             ["path-is-absolute", "npm:1.0.1"]
           ],
@@ -9325,14 +9325,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["minimatch", [
-        ["npm:3.0.4", {
-          "packageLocation": "./.yarn/cache/minimatch-npm-3.0.4-6e76f51c23-66ac295f8a.zip/node_modules/minimatch/",
-          "packageDependencies": [
-            ["minimatch", "npm:3.0.4"],
-            ["brace-expansion", "npm:1.1.11"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:3.1.2", {
           "packageLocation": "./.yarn/cache/minimatch-npm-3.1.2-9405269906-c154e56640.zip/node_modules/minimatch/",
           "packageDependencies": [
