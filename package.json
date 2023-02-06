@@ -1,6 +1,6 @@
 {
     "name": "vue-slide-unlock",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": {
         "name": "Anton Zolotov",
@@ -17,31 +17,31 @@
     },
     "main": "./dist/vue-slide-unlock.umd.min.js",
     "dependencies": {
-        "core-js": "^3.26.1",
+        "core-js": "^3.27.2",
         "easy-ease": "^1.0.9",
-        "vue": "^3.2.45"
+        "vue": "^3.2.47"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~5.0.8",
         "@vue/cli-plugin-eslint": "~5.0.8",
         "@vue/cli-service": "~5.0.8",
-        "@vue/compiler-sfc": "^3.2.45",
+        "@vue/compiler-sfc": "^3.2.47",
         "babel-eslint": "^10.1.0",
-        "eslint": "^8.28.0",
-        "eslint-plugin-import": "^2.26.0",
+        "eslint": "^8.33.0",
+        "eslint-plugin-import": "^2.27.5",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^6.1.1",
         "eslint-plugin-standard": "^5.0.0",
-        "eslint-plugin-vue": "^8.7.1",
-        "lint-staged": "^12.5.0",
-        "postcss": "^8.4.19",
+        "eslint-plugin-vue": "^9.9.0",
+        "lint-staged": "^13.1.0",
+        "postcss": "^8.4.21",
         "postcss-html": "^1.5.0",
-        "sass": "^1.56.1",
+        "sass": "^1.58.0",
         "sass-loader": "^10.4.1",
-        "stylelint": "^14.15.0",
-        "stylelint-config-property-sort-order-smacss": "^8.0.0",
-        "stylelint-config-standard-scss": "^3.0.0",
-        "stylelint-order": "^5.0.0",
+        "stylelint": "^14.16.1",
+        "stylelint-config-property-sort-order-smacss": "^9.0.0",
+        "stylelint-config-standard-scss": "^6.1.0",
+        "stylelint-order": "^6.0.1",
         "stylelint-scss": "^4.3.0"
     },
     "bugs": {
