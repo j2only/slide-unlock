@@ -15,7 +15,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build && npm run build:types",
-        "build:types": "vue-tsc --project tsconfig.build-types.json --declaration --emitDeclarationOnly --outDir dist/types ",
+        "build:types": "vue-tsc --project tsconfig.types.json --declaration --emitDeclarationOnly --outDir dist/types ",
         "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
         "lint": "npm run lint:js && npm run lint:style",
         "build-demo": "vue-cli-service build --prefix docs --dest docs",

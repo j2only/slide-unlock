@@ -8,5 +8,8 @@
         "**/*.cy.ts",
         "**/*.spec.ts",
         "**/__tests__/**/*"
-    ]
+    ],
+    "compilerOptions": {
+        "esModuleInterop": true
+    }
 }
