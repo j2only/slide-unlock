@@ -1,9 +1,10 @@
+<!-- sandbox/App.vue -->
 <template>
     <div>
         <nav>
             <div class="container">
                 <div>
-                    <img alt="Vue logo" src="@/assets/logo.png">
+                    <img alt="Vue logo" src="./assets/logo.png">
                     <h4>vue-slide-unlock</h4>
                 </div>
                 <div>
@@ -24,7 +25,7 @@
             <section class="head">
                 <img class="logo" alt="Vue logo" src="./assets/logo.png">
 
-                <h1>Vue.js 3.x "slide to unlock" component</h1>
+                <h1>Vue.js slide to unlock component</h1>
                 <div class="description">
                     <b>Protect users from accidental clicks for Vue.js</b>
                 </div>
@@ -42,7 +43,6 @@
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
-                    @completed="done()"
                 />
             </section>
 
@@ -179,7 +179,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
-import SlideUnlock from "@/components/SlideUnlock.vue"
+import SlideUnlock from "../src/SlideUnlock.vue"
 
 export default defineComponent({
     name: "App",
@@ -187,12 +187,13 @@ export default defineComponent({
         SlideUnlock
     },
     setup() {
-        const getCssVar = (name: string) => {
+        const getCssVar = (name) => {
             return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
         }
-        const setCssVar = (name: string, value: number | string) => {
-            document.documentElement.style.setProperty(name, value.toString())
+        const setCssVar = (name, value) => {
+            document.documentElement.style.setProperty(name, value)
         }
+
 
         const autoWidth = ref(true)
         const isCircle = ref(true)
@@ -204,20 +205,20 @@ export default defineComponent({
         const height = ref(80)
 
         const textSize = computed({
-            get(): number {
+            get() {
                 const rawValue = getCssVar("--su-size-text")
-                return parseInt(rawValue.slice(0, rawValue.length - 2), 10)
+                return rawValue.slice(0, rawValue.length - 2)
             },
-            set(value: number) {
+            set(value) {
                 setCssVar("--su-size-text", `${value}px`)
             }
         })
         const paddingSize = computed({
-            get(): number {
+            get() {
                 const rawValue = getCssVar("--su-size-padding")
-                return parseInt(rawValue.slice(0, rawValue.length - 2), 10)
+                return rawValue.slice(0, rawValue.length - 2)
             },
-            set(value: number) {
+            set(value) {
                 setCssVar("--su-size-padding", `${value}px`)
             }
         })
@@ -225,7 +226,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-bg")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-color-bg", value)
             }
         })
@@ -233,7 +234,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-progress-normal-bg")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-color-progress-normal-bg", value)
             }
         })
@@ -241,7 +242,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-progress-complete-bg")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-color-progress-complete-bg", value)
             }
         })
@@ -249,7 +250,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-handler-bg")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-color-handler-bg", value)
             }
         })
@@ -257,7 +258,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-text-normal")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-color-text-normal", value)
             }
         })
@@ -265,7 +266,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-color-text-complete")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-color-text-complete", value)
             }
         })
@@ -273,7 +274,7 @@ export default defineComponent({
             get() {
                 return getCssVar("--su-icon-handler")
             },
-            set(value: string) {
+            set(value) {
                 setCssVar("--su-icon-handler", value)
             }
         })
@@ -281,10 +282,6 @@ export default defineComponent({
         const vueSlideUnlockRef = ref()
         const resetComponent = () => {
             vueSlideUnlockRef.value.reset()
-        }
-
-        const done = () => {
-            console.log("DONE")
         }
 
         return {
@@ -306,8 +303,7 @@ export default defineComponent({
             textCompleteColor,
             handlerIcon,
             vueSlideUnlockRef,
-            resetComponent,
-            done
+            resetComponent
         }
     }
 })

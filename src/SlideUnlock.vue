@@ -297,6 +297,7 @@ export default defineComponent({
             animation: animated 2s linear infinite;
             background: var(--su-color-text-normal) linear-gradient(90deg, rgb(255 255 255 / 0%), white, rgb(255 255 255 / 0%)) no-repeat;
             background-clip: text;
+            -webkit-background-clip: text;
 
             // color: var(--su-color-text-normal);
             color: transparent;

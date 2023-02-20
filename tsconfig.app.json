@@ -1,0 +1,19 @@
+// tsconfig.app.json
+{
+    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "include": [
+        "env.d.ts",
+        "src/**/*",
+        "src/**/*.vue",
+        "vite-env.d.ts",
+        "easy-ease.d.ts"
+    ],
+    "exclude": [
+        "src/**/__tests__/*",
+        "src/**/*.cy.ts"
+    ],
+    "compilerOptions": {
+        "composite": true,
+        "baseUrl": "."
+    }
+}
