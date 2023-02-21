@@ -1,10 +1,11 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
+import VitePluginStyleInject from 'vite-plugin-style-inject';
 
 export default defineConfig({
     // If our .vue files have a style, it will be compiled as a single `.css` file under /dist.
-    plugins: [Vue()],
+    plugins: [Vue(), VitePluginStyleInject()],
 
     build: {
         // Output compiled files to /dist.

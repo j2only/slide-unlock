@@ -43,6 +43,7 @@
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
+                    @vnodeMounted="handleMounted"
                 />
             </section>
 
@@ -187,13 +188,12 @@ export default defineComponent({
         SlideUnlock
     },
     setup() {
-        const getCssVar = (name) => {
-            return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+        const getCssVar = (name: string) => {
+            return getComputedStyle(document.getElementById("slideunlock")).getPropertyValue(name).trim()
         }
         const setCssVar = (name, value) => {
-            document.documentElement.style.setProperty(name, value)
+            document.getElementById("slideunlock").style.setProperty(name, value)
         }
-
 
         const autoWidth = ref(true)
         const isCircle = ref(true)
@@ -204,19 +204,40 @@ export default defineComponent({
         const width = ref(400)
         const height = ref(80)
 
+        const tSize = ref("")
+        const pSize = ref("")
+        const bg = ref("#000000")
+        const pBg = ref("#000000")
+        const cBg = ref("#000000")
+        const hBg = ref("#000000")
+        const tColor = ref("#000000")
+        const tCompleteColor = ref("#000000")
+        const hIcon = ref("")
+
+        const handleMounted = () => {
+            tSize.value = getCssVar("--su-size-text").slice(0, getCssVar("--su-size-text").length - 2)
+            pSize.value = getCssVar("--su-size-padding").slice(0, getCssVar("--su-size-padding").length - 2)
+            bg.value = getCssVar("--su-color-bg")
+            pBg.value = getCssVar("--su-color-progress-normal-bg")
+            cBg.value = getCssVar("--su-color-progress-complete-bg")
+            hBg.value = getCssVar("--su-color-handler-bg")
+            tColor.value = getCssVar("--su-color-text-normal")
+            tCompleteColor.value = getCssVar("--su-color-text-complete")
+            hIcon.value = getCssVar("--su-icon-handler")
+        }
+
         const textSize = computed({
             get() {
-                const rawValue = getCssVar("--su-size-text")
-                return rawValue.slice(0, rawValue.length - 2)
+                return tSize.value
             },
             set(value) {
                 setCssVar("--su-size-text", `${value}px`)
             }
         })
+
         const paddingSize = computed({
             get() {
-                const rawValue = getCssVar("--su-size-padding")
-                return rawValue.slice(0, rawValue.length - 2)
+                return pSize.value
             },
             set(value) {
                 setCssVar("--su-size-padding", `${value}px`)
@@ -224,7 +245,7 @@ export default defineComponent({
         })
         const background = computed({
             get() {
-                return getCssVar("--su-color-bg")
+                return bg.value
             },
             set(value) {
                 setCssVar("--su-color-bg", value)
@@ -232,7 +253,7 @@ export default defineComponent({
         })
         const progressBarBg = computed({
             get() {
-                return getCssVar("--su-color-progress-normal-bg")
+                return pBg.value
             },
             set(value) {
                 setCssVar("--su-color-progress-normal-bg", value)
@@ -240,7 +261,7 @@ export default defineComponent({
         })
         const completedBg = computed({
             get() {
-                return getCssVar("--su-color-progress-complete-bg")
+                return cBg.value
             },
             set(value) {
                 setCssVar("--su-color-progress-complete-bg", value)
@@ -248,7 +269,7 @@ export default defineComponent({
         })
         const handlerBg = computed({
             get() {
-                return getCssVar("--su-color-handler-bg")
+                return hBg.value
             },
             set(value) {
                 setCssVar("--su-color-handler-bg", value)
@@ -256,7 +277,7 @@ export default defineComponent({
         })
         const textColor = computed({
             get() {
-                return getCssVar("--su-color-text-normal")
+                return tColor.value
             },
             set(value) {
                 setCssVar("--su-color-text-normal", value)
@@ -264,7 +285,7 @@ export default defineComponent({
         })
         const textCompleteColor = computed({
             get() {
-                return getCssVar("--su-color-text-complete")
+                return tCompleteColor.value
             },
             set(value) {
                 setCssVar("--su-color-text-complete", value)
@@ -272,7 +293,7 @@ export default defineComponent({
         })
         const handlerIcon = computed({
             get() {
-                return getCssVar("--su-icon-handler")
+                return hIcon.value
             },
             set(value) {
                 setCssVar("--su-icon-handler", value)
@@ -285,6 +306,7 @@ export default defineComponent({
         }
 
         return {
+            handleMounted,
             autoWidth,
             isCircle,
             isDisabled,
