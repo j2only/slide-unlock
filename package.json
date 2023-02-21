@@ -13,13 +13,16 @@
     "main": "dist/vue-slide-unlock.umd.js",
     "module": "dist/vue-slide-unlock.es.js",
     "types": "dist/types/index.d.ts",
+    "workspaces": [
+        "demo"
+    ],
     "scripts": {
         "dev": "vite",
         "build": "vite build && yarn build:types",
         "build:types": "vue-tsc --project tsconfig.types.json --declaration --emitDeclarationOnly --outDir dist/types ",
-        "typecheck": "vue-tsc --project tsconfig.build-types.json --noEmit",
+        "typecheck": "vue-tsc --project tsconfig.types.json --noEmit",
+        "demo": "yarn workspace demo generate",
         "lint": "npm run lint:js && npm run lint:style",
-        "build-demo": "vue-cli-service build --prefix docs --dest docs",
         "lint:js": "eslint --fix --ext .js,.vue --ignore-path .eslintignore .",
         "lint:style": "stylelint **/*.{vue,css,scss} --ignore-path .gitignore --fix --config ./.stylelintrc-format",
         "test": "echo \"Error: no test specified\" && exit 1"

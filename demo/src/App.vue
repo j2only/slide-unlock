@@ -180,7 +180,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
-import SlideUnlock from "../src/SlideUnlock.vue"
+import SlideUnlock from "../../src/SlideUnlock.vue"
 
 export default defineComponent({
     name: "App",
@@ -189,10 +189,12 @@ export default defineComponent({
     },
     setup() {
         const getCssVar = (name: string) => {
-            return getComputedStyle(document.getElementById("slideunlock")).getPropertyValue(name).trim()
+            const h = document.getElementById("slideunlock") as HTMLElement
+            return getComputedStyle(h).getPropertyValue(name).trim()
         }
-        const setCssVar = (name, value) => {
-            document.getElementById("slideunlock").style.setProperty(name, value)
+        const setCssVar = (name: string, value: any) => {
+            const h = document.getElementById("slideunlock") as HTMLElement
+            h.style.setProperty(name, value)
         }
 
         const autoWidth = ref(true)

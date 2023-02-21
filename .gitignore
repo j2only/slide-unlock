@@ -1,8 +1,8 @@
 .DS_Store
 node_modules
-dist/demo.html
-docs
-coverage
+dist
+demo/dist
+demo-dist
 
 .yarn/*
 !.yarn/patches
