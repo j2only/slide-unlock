@@ -7,5 +7,6 @@ export default defineConfig({
     build: {
         // Output compiled files to /dist.
         outDir: '../demo-dist'
-    }
+    },
+    base: '/vue-slide-unlock/'
 })
