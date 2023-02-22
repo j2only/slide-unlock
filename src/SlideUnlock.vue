@@ -139,10 +139,10 @@ export default defineComponent({
         const slideStart = (e: MouseEvent | TouchEvent) => {
             if (!Slider.IsComplete) {
                 Slider.CanMove = true
-                if (e instanceof TouchEvent) {
+                if (window.TouchEvent && e instanceof TouchEvent) {
                     Slider.StartPositionWindow = (e.touches[0].pageX) - Slider.HandlerPosition
                 }
-                else {
+                else if (e instanceof MouseEvent) {
                     Slider.StartPositionWindow = (e.pageX) - Slider.HandlerPosition
                 }
             }
@@ -159,12 +159,12 @@ export default defineComponent({
             }
         }
 
-        const slideMoving = (e: MouseEvent | TouchEvent) => {
+        const slideMoving = (e: any) => {
             if (Slider.CanMove && !Slider.IsComplete) {
-                if (e instanceof TouchEvent) {
+                if (window.TouchEvent && e instanceof TouchEvent) {
                     Slider.HandlerPosition = (e.touches[0].pageX) - Slider.StartPositionWindow
                 }
-                else {
+                else if (e instanceof MouseEvent) {
                     Slider.HandlerPosition = (e.pageX) - Slider.StartPositionWindow
                 }
                 if (Slider.HandlerPosition > 0 && Slider.HandlerPosition <= (sliderWidth.value - props.height)) {
@@ -179,12 +179,12 @@ export default defineComponent({
             }
         }
 
-        const slideFinish = (e: MouseEvent | TouchEvent) => {
+        const slideFinish = (e: any) => {
             if (Slider.CanMove && !Slider.IsComplete) {
-                if (e instanceof TouchEvent) {
+                if (window.TouchEvent && e instanceof TouchEvent) {
                     Slider.HandlerPosition = (e.changedTouches[0].pageX) - Slider.StartPositionWindow
                 }
-                else {
+                else if (e instanceof MouseEvent) {
                     Slider.HandlerPosition = (e.pageX) - Slider.StartPositionWindow
                 }
                 if (Slider.HandlerPosition < (sliderWidth.value - props.height)) {
