@@ -1,4 +1,4 @@
 /* eslint-disable import/prefer-default-export */
 import SlideUnlock from './SlideUnlock.vue'
 
-export { SlideUnlock }
+export default SlideUnlock
