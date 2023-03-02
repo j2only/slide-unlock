@@ -24,5 +24,12 @@ export default defineConfig({
             external: ['vue'],
             output: { globals: { vue: 'Vue' } },
         },
+    },
+    test: {
+        globals: true,
+        coverage: {
+            provider: 'istanbul'
+        },
+        environment: 'happy-dom',
     }
 })

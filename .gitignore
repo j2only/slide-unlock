@@ -2,6 +2,7 @@
 node_modules
 demo/dist
 demo-dist
+coverage
 
 .yarn/*
 !.yarn/patches

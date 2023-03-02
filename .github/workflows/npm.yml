@@ -1,8 +1,7 @@
 name: NPM package
 on:
-  push:
-    branches:
-      - main # Change this to your default branch
+  release:
+    types: [created]
 jobs:
   build:
     runs-on: ubuntu-latest

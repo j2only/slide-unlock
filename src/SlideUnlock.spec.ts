@@ -1,15 +1,15 @@
-import { shallowMount } from "@vue/test-utils"
-import SlideUnlock from "@/components/SlideUnlock.vue"
+import { mount } from "@vue/test-utils"
+import SlideUnlock from "./SlideUnlock.vue"
 
 describe("SlideUnlock.vue", () => {
     it("should render the component", () => {
-        const wrapper = shallowMount(SlideUnlock)
+        const wrapper = mount(SlideUnlock)
         expect(wrapper.text()).toMatch("slide to unlock")
     })
 
     it("renders text prop when passed", () => {
         const text = "drag to the right"
-        const wrapper = shallowMount(SlideUnlock, {
+        const wrapper = mount(SlideUnlock, {
             props: { text }
         })
         expect(wrapper.find(".slideunlock-text").text()).toMatch(text)
@@ -17,7 +17,7 @@ describe("SlideUnlock.vue", () => {
 
     it("renders with fixed width when autoWidth=false prop passed", () => {
         const compWidth = 500
-        const wrapper = shallowMount(SlideUnlock, {
+        const wrapper = mount(SlideUnlock, {
             props: {
                 autoWidth: false,
                 width: compWidth
@@ -28,7 +28,7 @@ describe("SlideUnlock.vue", () => {
 
     it("renders with desired height when height prop passed", () => {
         const compHeight = 100
-        const wrapper = shallowMount(SlideUnlock, {
+        const wrapper = mount(SlideUnlock, {
             props: {
                 height: compHeight
             }
@@ -37,7 +37,7 @@ describe("SlideUnlock.vue", () => {
     })
 
     it("renders with right angles when circle=false prop passed", () => {
-        const wrapper = shallowMount(SlideUnlock, {
+        const wrapper = mount(SlideUnlock, {
             props: {
                 circle: false
             }
@@ -47,7 +47,7 @@ describe("SlideUnlock.vue", () => {
     })
 
     it("renders disabled when disabled=true prop passed", () => {
-        const wrapper = shallowMount(SlideUnlock, {
+        const wrapper = mount(SlideUnlock, {
             props: {
                 disabled: true
             }
@@ -56,7 +56,7 @@ describe("SlideUnlock.vue", () => {
     })
 
     it("renders without animations when noanimate=true prop passed", () => {
-        const wrapper = shallowMount(SlideUnlock, {
+        const wrapper = mount(SlideUnlock, {
             props: {
                 noanimate: true
             }
@@ -66,7 +66,7 @@ describe("SlideUnlock.vue", () => {
 
     // it("slide test", () => {
     //     const successText = "excelsior"
-    //     const wrapper = shallowMount(SlideUnlock, {
+    //     const wrapper = mount(SlideUnlock, {
     //         props: {
     //             successText,
     //             autoWidth: false,
