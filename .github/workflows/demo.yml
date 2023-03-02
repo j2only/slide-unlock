@@ -1,4 +1,4 @@
-name: build-publish-demo
+name: Demo site
 on: [push]
 permissions:
   contents: write

@@ -6,6 +6,7 @@
                 <div>
                     <img alt="Vue logo" src="./assets/logo.png">
                     <h4>vue-slide-unlock</h4>
+                    <span class="version">[{{ cVersion }}]</span>
                 </div>
                 <div>
                     <a class="nav-item" href="https://github.com/joseph2/vue-slide-unlock" title="Github" target="_blank">
@@ -171,7 +172,7 @@
         </div>
         <footer>
             <div class="container">
-                <div> &copy; 2022 Anton Zolotov </div>
+                <div> &copy; {{ new Date().getFullYear() }} Anton Zolotov </div>
                 <a href="https://github.com/joseph2">github.com</a>
             </div>
         </footer>
@@ -181,6 +182,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue"
 import SlideUnlock from "../../src/SlideUnlock.vue"
+import packageInfo from "../../package.json"
 
 export default defineComponent({
     name: "App",
@@ -188,6 +190,7 @@ export default defineComponent({
         SlideUnlock
     },
     setup() {
+        const cVersion = packageInfo.version
         const getCssVar = (name: string) => {
             const h = document.getElementById("slideunlock") as HTMLElement
             return getComputedStyle(h).getPropertyValue(name).trim()
@@ -308,6 +311,7 @@ export default defineComponent({
         }
 
         return {
+            cVersion,
             handleMounted,
             autoWidth,
             isCircle,
@@ -392,6 +396,12 @@ section {
     h2 {
         text-align: center;
     }
+}
+.version {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    margin-left: 0.5rem;
+    font-weight: bold;
 }
 .btn {
     padding: 0.5rem 1.25rem;
