@@ -1,4 +1,4 @@
-name: Demo site
+name: Generate demo site
 on:
   release:
     types: [created]

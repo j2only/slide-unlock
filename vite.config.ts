@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VitePluginStyleInject from 'vite-plugin-style-inject';
@@ -28,7 +29,9 @@ export default defineConfig({
     test: {
         globals: true,
         coverage: {
-            provider: 'istanbul'
+            enabled: true,
+            provider: 'istanbul',
+            reporter: ['json-summary', 'html']
         },
         environment: 'happy-dom',
     }
