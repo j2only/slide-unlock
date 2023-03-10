@@ -1,4 +1,5 @@
 import { mount } from "@vue/test-utils"
+import { describe, expect, it } from 'vitest';
 import SlideUnlock from "./SlideUnlock.vue"
 
 describe("SlideUnlock.vue", () => {
@@ -63,28 +64,4 @@ describe("SlideUnlock.vue", () => {
         })
         expect(wrapper.find("#slideunlock").classes("is-noanimate")).toBe(true)
     })
-
-    // it("slide test", () => {
-    //     const successText = "excelsior"
-    //     const wrapper = mount(SlideUnlock, {
-    //         props: {
-    //             successText,
-    //             autoWidth: false,
-    //             width: 400
-    //         }
-    //     })
-    //     wrapper.find(".slideunlock-handler").trigger("touchstart", {
-    //         touches: {
-    //             clientX: 1, clientY: 0
-    //         }
-    //     })
-    //     // wrapper.find(".slideunlock-handler").trigger("touchmove", {
-    //     //     touches: {
-    //     //         clientX: 1, clientY: 0
-    //     //     }
-    //     // })
-    //     // wrapper.find(".slideunlock-handler").trigger("touchend")
-
-    //     expect(wrapper.text()).toMatch(successText)
-    // })
 })

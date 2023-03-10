@@ -139,7 +139,7 @@ export default defineComponent({
         const slideStart = (e: MouseEvent | TouchEvent) => {
             if (!Slider.IsComplete) {
                 Slider.CanMove = true
-                if (window.TouchEvent && e instanceof TouchEvent) {
+                if (window.TouchEvent && e instanceof TouchEvent && e.touches) {
                     Slider.StartPositionWindow = (e.touches[0].pageX) - Slider.HandlerPosition
                 }
                 else if (e instanceof MouseEvent) {
@@ -161,7 +161,7 @@ export default defineComponent({
 
         const slideMoving = (e: any) => {
             if (Slider.CanMove && !Slider.IsComplete) {
-                if (window.TouchEvent && e instanceof TouchEvent) {
+                if (window.TouchEvent && e instanceof TouchEvent && e.touches) {
                     Slider.HandlerPosition = (e.touches[0].pageX) - Slider.StartPositionWindow
                 }
                 else if (e instanceof MouseEvent) {
@@ -181,7 +181,7 @@ export default defineComponent({
 
         const slideFinish = (e: any) => {
             if (Slider.CanMove && !Slider.IsComplete) {
-                if (window.TouchEvent && e instanceof TouchEvent) {
+                if (window.TouchEvent && e instanceof TouchEvent && e.touches) {
                     Slider.HandlerPosition = (e.changedTouches[0].pageX) - Slider.StartPositionWindow
                 }
                 else if (e instanceof MouseEvent) {

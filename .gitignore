@@ -3,6 +3,9 @@ node_modules
 demo/dist
 demo-dist
 coverage
+dist
+cypress/videos
+.nyc_output
 
 .yarn/*
 !.yarn/patches

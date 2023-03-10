@@ -1,12 +1,19 @@
 # vue-slide-unlock
 
- ![npm publish](https://github.com/joseph2/vue-slide-unlock/actions/workflows/npm.yml/badge.svg) [![npm](https://img.shields.io/npm/v/vue-slide-unlock.svg)](https://www.npmjs.com/package/vue-slide-unlock) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue-slide-unlock)  [![CodeFactor](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/badge/main)](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/overview/main) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/joseph2/vue-slide-unlock/blob/HEAD/LICENSE) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/joseph2/vue-slide-unlock/issues)
+ ![npm publish](https://github.com/joseph2/vue-slide-unlock/actions/workflows/npm.yml/badge.svg) [![npm](https://img.shields.io/npm/v/vue-slide-unlock.svg)](https://www.npmjs.com/package/vue-slide-unlock) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue-slide-unlock)  [![CodeFactor](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/badge/main)](https://www.codefactor.io/repository/github/joseph2/vue-slide-unlock/overview/main) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/joseph2/vue-slide-unlock/issues)
 
-Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack. Rewritten on TypeScript. Compatible only with Vue.js 3.x.
+Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.
+Written entirely on Vue 3 Composition API with Typescript and Vite. Coated with tests using Cypress. Compatible only with Vue.js 3.x.
 
 You can check a [DEMO HERE](https://joseph2.github.io/vue-slide-unlock/)
 
 ![Preview](preview.gif)
+
+## Test coverage
+
+| Statements                                                                                 | Branches                                                                               | Functions                                                                                | Lines                                                                            |
+| ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| ![Statements](https://img.shields.io/badge/statements-96.15%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-98.52%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-97.67%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-96.07%25-brightgreen.svg?style=flat) |
 
 ## Installation
 
