@@ -1,8 +1,8 @@
 name: Generate demo site
 on:
-  release:
-    types: [published]
-  workflow_dispatch
+  push:
+    branches:
+      - main # Change this to your default branch
 permissions:
   contents: write
 jobs:
