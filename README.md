@@ -47,6 +47,7 @@ Import the component in your app and pass some settings:
         :height="60"
         text="slide to unlock"
         success-text="success"
+        name="slideunlock"
         @completed="complete()"
     />
 </template>
@@ -64,16 +65,17 @@ export default {
 
 As you can see, the component accepts some props:
 
-| Prop        | Type    | Default         | Description                                                           |
-| ----------- | ------- | --------------- | --------------------------------------------------------------------- |
-| autoWidth   | Boolean | true            | Auto width for component                                              |
-| circle      | Boolean | true            | All parts of component will be with border-raduis and rounded handler |
-| disabled    | Boolean | false           | Disable interaction with component                                    |
-| noanimate   | Boolean | false           | Disable css animations (but not css transitions)                      |
-| width       | Number  | 400             | Width of element (ignored if autoWidth is true)                       |
-| height      | Number  | 60              | Height of element                                                     |
-| text        | String  | slide to unlock | Text on element                                                       |
-| successText | String  | success         | Text on element when slide is completed                               |
+| Prop        | Type    | Default           | Description                                                           |
+| ----------- | ------- | ----------------- | --------------------------------------------------------------------- |
+| autoWidth   | Boolean | true              | Auto width for component                                              |
+| circle      | Boolean | true              | All parts of component will be with border-radius and rounded handler |
+| disabled    | Boolean | false             | Disable interaction with component                                    |
+| noanimate   | Boolean | false             | Disable css animations (but not css transitions)                      |
+| width       | Number  | 400               | Width of element (ignored if autoWidth is true)                       |
+| height      | Number  | 60                | Height of element                                                     |
+| text        | String  | "slide to unlock" | Text on element                                                       |
+| successText | String  | "success"         | Text on element when slide is completed                               |
+| name        | String  | "slideunlock"     | Unique ID, in case of using several components on one page            |
 
 Also, you can customize some styles via CSS Variables:
 
@@ -103,16 +105,16 @@ If you want to reset the state of a component, you need to assign a ref to the c
 
 ```javascript
 <template>
-    <slide-unlock ref="vueslideunlock" />
+    <slide-unlock ref="vueSlideUnlockRef" />
 </template>
 ```
 
 And then you need to call the reset method
 
 ```javascript
- methods: {
-    reset() {
-        this.$refs.vueslideunlock.reset()
-    }
+const vueSlideUnlockRef = ref()
+
+const resetComponent = () => {
+    vueSlideUnlockRef.value.reset()
 }
 ```

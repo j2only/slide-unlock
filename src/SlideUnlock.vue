@@ -1,6 +1,6 @@
 <template>
     <div
-        id="slideunlock"
+        :id="name"
         class="slideunlock"
         :class="{
             'is-disabled': disabled,
@@ -67,6 +67,10 @@ export default defineComponent({
         noanimate: {
             type: Boolean,
             default: false
+        },
+        name: {
+            type: String,
+            default: "slideunlock"
         }
     },
     setup(props, { emit }) {
@@ -111,7 +115,7 @@ export default defineComponent({
         })
 
         const sliderWidth = computed(() => {
-            const h = document.getElementById("slideunlock") as HTMLElement
+            const h = document.getElementById(props.name) as HTMLElement
             return props.autoWidth
                 ? h.clientWidth - (parseInt(getComputedStyle(h).getPropertyValue("--su-size-padding").replace("px", ""), 10) * 2)
                 : props.width

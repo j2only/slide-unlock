@@ -44,6 +44,7 @@
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
+                    name="slideunlock"
                     @vnodeMounted="handleMounted"
                 />
             </section>
