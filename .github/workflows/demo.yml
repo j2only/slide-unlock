@@ -1,8 +1,5 @@
 name: Generate demo site
-on:
-  push:
-    branches:
-      - main # Change this to your default branch
+on: [workflow_dispatch]
 permissions:
   contents: write
 jobs:

@@ -1,8 +1,5 @@
 name: Build & Publish to NPM
-on:
-  push:
-    branches:
-      - main # Change this to your default branch
+on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
