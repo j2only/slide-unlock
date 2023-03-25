@@ -319,7 +319,7 @@ export default defineComponent({
             top: 0;
             left: 0;
             margin: var(--su-size-padding);
-            transition: background 0.75s ease, transform 0.1s ease-in;
+            transition: none;
             background: var(--su-color-handler-bg) var(--su-icon-handler) no-repeat center;
             cursor: grab;
             &:active {
