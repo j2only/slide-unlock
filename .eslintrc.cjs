@@ -133,8 +133,8 @@ module.exports = {
         },
         {
             files: [
-                "./src/App.vue",
-                "./src/components/SlideUnlock.vue"
+                "./demo/src/App.vue",
+                "./src/SlideUnlock.vue"
             ],
             rules: {
                 "max-len": 0
