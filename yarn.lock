@@ -2253,7 +2253,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.5.3":
+"chokidar@npm:>=3.0.0 <4.0.0":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
   dependencies:
@@ -2571,19 +2571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress-vite@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "cypress-vite@npm:1.4.1"
-  dependencies:
-    chokidar: ^3.5.3
-    debug: ^4.3.4
-  peerDependencies:
-    vite: ^2.9.0 || ^3.0.0 || ^4.0.0
-  checksum: ee0c06f14a6324491e0177ef262cceed28a72bccade0160709a200731f3f0451ca29e9a70214724393d838bec6ca11184c040c22cbd0d691e00beafc13309856
-  languageName: node
-  linkType: hard
-
-"cypress@npm:^12.17.1":
+"cypress@npm:12.17.1":
   version: 12.17.1
   resolution: "cypress@npm:12.17.1"
   dependencies:
@@ -2803,8 +2791,8 @@ __metadata:
   resolution: "demo@workspace:demo"
   dependencies:
     "@vitejs/plugin-vue": ^4.2.3
-    typescript: 4.9.5
-    vite: ^4.4.2
+    typescript: 5.1.6
+    vite: ^4.4.3
     vue: ^3.3.4
     vue-tsc: ^1.8.4
   languageName: unknown
@@ -8098,23 +8086,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.5":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
+"typescript@npm:5.1.6":
+  version: 5.1.6
+  resolution: "typescript@npm:5.1.6"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  checksum: b2f2c35096035fe1f5facd1e38922ccb8558996331405eb00a5111cc948b2e733163cc22fab5db46992aba7dd520fff637f2c1df4996ff0e134e77d3249a7350
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.5#~builtin<compat/typescript>":
-  version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
+"typescript@patch:typescript@5.1.6#~builtin<compat/typescript>":
+  version: 5.1.6
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
+  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
   languageName: node
   linkType: hard
 
@@ -8341,13 +8329,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "vite@npm:4.4.2"
+"vite@npm:^4.4.3":
+  version: 4.4.3
+  resolution: "vite@npm:4.4.3"
   dependencies:
     esbuild: ^0.18.10
     fsevents: ~2.3.2
-    postcss: ^8.4.24
+    postcss: ^8.4.25
     rollup: ^3.25.2
   peerDependencies:
     "@types/node": ">= 14"
@@ -8377,7 +8365,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 37a1c3a0ccc4b80c0a696203d3608d6bf7dc98219ddc178e528b972e3305af9ab8f92dea455421024e98c59372f6a97b1b4cc409a05f757a64bff830610053c6
+  checksum: 2f7c90de35c840ed7f33000d65006053885c0342aa7c19cee7369d7b3d92473a9bae790f910eb3e9900bdb7ca89559a772ee4782f35636ec4e6bd10717e7f5ff
   languageName: node
   linkType: hard
 
@@ -8480,9 +8468,8 @@ __metadata:
     "@vue/eslint-config-typescript": ^11.0.3
     "@vue/test-utils": ^2.4.0
     "@vue/tsconfig": ^0.4.0
-    cypress: ^12.17.1
+    cypress: 12.17.1
     cypress-real-events: ^1.8.1
-    cypress-vite: ^1.4.1
     easy-ease: ^1.0.9
     eslint: ^8.44.0
     eslint-plugin-import: ^2.27.5
@@ -8507,8 +8494,8 @@ __metadata:
     stylelint-order: ^6.0.3
     stylelint-scss: ^5.0.1
     ts-node: ^10.9.1
-    typescript: 4.9.5
-    vite: ^4.4.2
+    typescript: 5.1.6
+    vite: ^4.4.3
     vite-plugin-istanbul: ^4.1.0
     vite-plugin-style-inject: ^0.0.1
     vitest: ^0.33.0
