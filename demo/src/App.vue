@@ -45,7 +45,7 @@
                     :success-text="successText"
                     :handler-icon="handlerIcon"
                     name="slideunlock"
-                    @vnodeMounted="handleMounted"
+                    @vue:mounted="handleMounted"
                 />
             </section>
 
@@ -166,10 +166,10 @@
 
             <section class="actions-section">
                 <h2>Actions</h2>
-                <button class="btn" @click="resetComponent()">
+                <button class="btn" @click="resetComponent()" data-cy="reset">
                     Reset state
                 </button>
-                <button class="btn" @click="completeComponent()">
+                <button class="btn" @click="completeComponent()" data-cy="complete">
                     Complete state
                 </button>
             </section>

@@ -1,23 +1,23 @@
 /// <reference types="cypress" />
 
-import SlideUnlock from './SlideUnlock.vue'
-import '@cypress/code-coverage/support'
-import { mount } from 'cypress/vue'
+import SlideUnlock from "./SlideUnlock.vue"
+import "@cypress/code-coverage/support"
+import { mount } from "cypress/vue"
 
-describe('<SlideUnlock />', () => {
-    it('render the component', () => {
+describe("<SlideUnlock />", () => {
+    it("render the component", () => {
         // see: https://on.cypress.io/mounting-vue
         cy.mount(SlideUnlock)
     })
 
-    it('render text prop when passed', () => {
+    it("render text prop when passed", () => {
         const text = "drag to the right"
         cy.mount(SlideUnlock, {
             props: {
                 text
             }
         })
-        cy.get('.slideunlock-text').invoke('text').should('eq', text)
+        cy.get(".slideunlock-text").invoke("text").should("eq", text)
     })
 
     it("renders with fixed width when autoWidth=false prop passed", () => {
@@ -28,9 +28,18 @@ describe('<SlideUnlock />', () => {
                 width: compWidth
             }
         })
-        cy.get('#slideunlock').invoke('css', 'width').then((width) => {
+        cy.get("#slideunlock").invoke("css", "width").then((width) => {
             expect(width).to.eq(`${compWidth}px`)
         })
+    })
+
+    it("renders with sharp borders", () => {
+        cy.mount(SlideUnlock, {
+            props: {
+                circle: false
+            }
+        })
+        cy.get("#slideunlock").should("not.have.class", "is-circle")
     })
 
     it("renders with desired height when height prop passed", () => {
@@ -40,7 +49,7 @@ describe('<SlideUnlock />', () => {
                 height: compHeight
             }
         })
-        cy.get('#slideunlock').invoke('css', 'height').then((height) => {
+        cy.get("#slideunlock").invoke("css", "height").then((height) => {
             expect(height).to.eq(`${compHeight}px`)
         })
     })
@@ -51,7 +60,7 @@ describe('<SlideUnlock />', () => {
                 disabled: true
             }
         })
-        cy.get('#slideunlock').should('have.class', 'is-disabled')
+        cy.get("#slideunlock").should("have.class", "is-disabled")
     })
 
     it("renders without animations when noanimate=true prop passed", () => {
@@ -60,7 +69,7 @@ describe('<SlideUnlock />', () => {
                 noanimate: true
             }
         })
-        cy.get('#slideunlock').should('have.class', 'is-noanimate')
+        cy.get("#slideunlock").should("have.class", "is-noanimate")
     })
 
     it("unfinished slide test with TouchEvent", () => {
@@ -76,13 +85,13 @@ describe('<SlideUnlock />', () => {
             }
         })
 
-        const handler = cy.get(".slideunlock-handler");
+        const handler = cy.get(".slideunlock-handler")
 
         handler.realSwipe("toRight", {
             length: width - 100
-        });
+        })
 
-        cy.get('.slideunlock-text').invoke('text').should('eq', text)
+        cy.get(".slideunlock-text").invoke("text").should("eq", text)
     })
 
     it("slide to unlock test with TouchEvent", () => {
@@ -96,12 +105,12 @@ describe('<SlideUnlock />', () => {
             }
         })
 
-        const handler = cy.get(".slideunlock-handler");
+        const handler = cy.get(".slideunlock-handler")
         handler.realSwipe("toRight", {
             length: width
-        });
+        })
 
-        cy.get('.slideunlock-text').invoke('text').should('eq', successText)
+        cy.get(".slideunlock-text").invoke("text").should("eq", successText)
     })
 
     it("unfinished slide test with MouseEvent", () => {
@@ -117,12 +126,12 @@ describe('<SlideUnlock />', () => {
             }
         })
 
-        const handler = cy.get(".slideunlock-handler");
-        handler.realMouseDown();
-        handler.realMouseMove(width - 100, 0, { position: "center" });
-        handler.realMouseUp();
+        const handler = cy.get(".slideunlock-handler")
+        handler.realMouseDown()
+        handler.realMouseMove(width - 100, 0, { position: "center" })
+        handler.realMouseUp()
 
-        cy.get('.slideunlock-text').invoke('text').should('eq', text)
+        cy.get(".slideunlock-text").invoke("text").should("eq", text)
     })
 
     it("slide to unlock test with MouseEvent", () => {
@@ -136,37 +145,37 @@ describe('<SlideUnlock />', () => {
             }
         })
 
-        const handler = cy.get(".slideunlock-handler");
-        handler.realMouseDown();
-        handler.realMouseMove(width, 0, { position: "center" });
-        handler.realMouseUp();
+        const handler = cy.get(".slideunlock-handler")
+        handler.realMouseDown()
+        handler.realMouseMove(width, 0, { position: "center" })
+        handler.realMouseUp()
 
-        cy.get('.slideunlock-text').invoke('text').should('eq', successText)
+        cy.get(".slideunlock-text").invoke("text").should("eq", successText)
     })
 
     it("update some props", () => {
         const compWidth = 300
         const windowWidth = window.innerWidth
-        var component = null
+        const component = null
 
         cy.mount(SlideUnlock, {
             props: {
                 autoWidth: true
             }
-        }).as('component')
+        }).as("component")
 
-        const handler = cy.get(".slideunlock-handler");
+        const handler = cy.get(".slideunlock-handler")
         handler.realSwipe("toRight", {
             length: windowWidth
-        });
+        })
 
-        cy.get('@component').then(({ wrapper }) => {
+        cy.get("@component").then(({ wrapper }) => {
             wrapper.setProps({
                 autoWidth: false
             })
         })
 
-        cy.get('@component').then(({ wrapper }) => {
+        cy.get("@component").then(({ wrapper }) => {
             wrapper.setProps({
                 autoWidth: false,
                 width: compWidth
@@ -175,9 +184,8 @@ describe('<SlideUnlock />', () => {
 
         cy.wait(100)
 
-        cy.get('#slideunlock').invoke('css', 'width').then((width) => {
+        cy.get("#slideunlock").invoke("css", "width").then((width) => {
             expect(width).to.eq(`${compWidth}px`)
         })
     })
-
 })
