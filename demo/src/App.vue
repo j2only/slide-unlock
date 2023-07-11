@@ -169,6 +169,9 @@
                 <button class="btn" @click="resetComponent()">
                     Reset state
                 </button>
+                <button class="btn" @click="completeComponent()">
+                    Complete state
+                </button>
             </section>
         </div>
         <footer>
@@ -310,6 +313,9 @@ export default defineComponent({
         const resetComponent = () => {
             vueSlideUnlockRef.value.reset()
         }
+        const completeComponent = () => {
+            vueSlideUnlockRef.value.complete()
+        }
 
         return {
             cVersion,
@@ -332,7 +338,8 @@ export default defineComponent({
             textCompleteColor,
             handlerIcon,
             vueSlideUnlockRef,
-            resetComponent
+            resetComponent,
+            completeComponent
         }
     }
 })
@@ -567,6 +574,12 @@ footer {
     margin: 4rem 0;
 }
 .actions-section {
-    text-align: center;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+    h2 {
+        grid-column: 1 / 3;
+        margin-bottom: 0;
+    }
 }
 </style>

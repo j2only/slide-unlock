@@ -222,6 +222,15 @@ export default defineComponent({
             Slider.TextOpacity = 1
         }
 
+        const complete = () => {
+            Slider.CanMove = false
+            Slider.IsComplete = true
+            Slider.StartPositionWindow = 0
+            Slider.HandlerPosition = 0
+            Slider.ProgressWidth = sliderWidth.value
+            Slider.TextOpacity = 1
+        }
+
         return {
             Slider,
             slideUnlockStyle,
@@ -232,7 +241,8 @@ export default defineComponent({
             slideStart,
             slideMoving,
             slideFinish,
-            reset
+            reset,
+            complete
         }
     }
 })

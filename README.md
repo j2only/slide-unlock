@@ -109,12 +109,24 @@ If you want to reset the state of a component, you need to assign a ref to the c
 </template>
 ```
 
-And then you need to call the reset method
+And then you need to call the "reset" method
 
 ```javascript
 const vueSlideUnlockRef = ref()
 
 const resetComponent = () => {
     vueSlideUnlockRef.value.reset()
+}
+```
+
+## Completed state
+
+If you want to get the сompleted state of a component, you need to call the "complete" method
+
+```javascript
+const vueSlideUnlockRef = ref()
+
+const resetComponent = () => {
+    vueSlideUnlockRef.value.complete()
 }
 ```
