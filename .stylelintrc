@@ -8,11 +8,10 @@
         "stylelint-scss"
     ],
     "rules": {
-        "indentation": 4,
         "rule-empty-line-before": null,
         "at-rule-empty-line-before": null,
         "at-rule-no-unknown": null,
-        "color-hex-case": null,
+        "color-no-invalid-hex": true,
         "no-descending-specificity": null,
         "selector-type-no-unknown": [
             true,

@@ -184,9 +184,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue"
-import SlideUnlock from "../../src/SlideUnlock.vue"
+import { computed, defineComponent, ref } from "vue"
 import packageInfo from "../../package.json"
+import SlideUnlock from "../../src/SlideUnlock.vue"
 
 export default defineComponent({
     name: "App",
@@ -199,7 +199,7 @@ export default defineComponent({
             const h = document.getElementById("slideunlock") as HTMLElement
             return getComputedStyle(h).getPropertyValue(name).trim()
         }
-        const setCssVar = (name: string, value: any) => {
+        const setCssVar = (name: string, value: string) => {
             const h = document.getElementById("slideunlock") as HTMLElement
             h.style.setProperty(name, value)
         }
@@ -406,10 +406,10 @@ section {
     }
 }
 .version {
-    font-size: 0.75rem;
-    line-height: 0.75rem;
     margin-left: 0.5rem;
+    font-size: 0.75rem;
     font-weight: bold;
+    line-height: 0.75rem;
 }
 .btn {
     padding: 0.5rem 1.25rem;
@@ -434,8 +434,7 @@ section {
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 1rem;
-    row-gap: 0.5rem;
+    gap: 0.5rem 1rem;
     &.is-1 {
         grid-template-columns: repeat(1, 1fr);
         padding: 0.5rem 0 0;

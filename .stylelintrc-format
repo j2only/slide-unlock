@@ -18,13 +18,11 @@
         }
     ],
     "rules": {
-        "indentation": 4,
         "rule-empty-line-before": "never",
         "at-rule-empty-line-before": "never",
         "at-rule-no-unknown": null,
-        "color-hex-case": "upper",
+        "color-no-invalid-hex": true,
         "no-descending-specificity": null,
-        "max-line-length": null,
         "selector-type-no-unknown": [
             true,
             {
