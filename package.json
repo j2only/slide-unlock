@@ -1,6 +1,6 @@
 {
     "name": "vue-slide-unlock",
-    "version": "0.4.9",
+    "version": "0.4.10",
     "description": "Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": {
         "name": "Anton Zolotov",
@@ -89,19 +89,13 @@
         "vue-tsc": "^1.8.27"
     },
     "bugs": {
-        "url": "https://github.com/joseph2/vue-slide-unlock/issues"
+        "url": "https://github.com/j2only/vue-slide-unlock/issues"
     },
-    "homepage": "https://joseph2.github.io/vue-slide-unlock/",
-    "keywords": [
-        "vue",
-        "slide",
-        "swipe",
-        "unlock"
-    ],
+    "homepage": "https://j2only.github.io/vue-slide-unlock/",
     "license": "MIT",
     "packageManager": "yarn@4.0.2",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/joseph2/vue-slide-unlock.git"
+        "url": "git+https://github.com/j2only/vue-slide-unlock.git"
     }
 }
