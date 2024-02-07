@@ -5,7 +5,8 @@
         "stylelint-config-recommended-vue"
     ],
     "plugins": [
-        "stylelint-scss"
+        "stylelint-scss",
+        "@stylistic/stylelint-plugin"
     ],
     "rules": {
         "rule-empty-line-before": null,
@@ -21,6 +22,12 @@
                 ]
             }
         ],
-        "scss/selector-no-redundant-nesting-selector": true
+        "scss/selector-no-redundant-nesting-selector": true,
+        "@stylistic/indentation": [
+            4,
+            {
+                "baseIndentLevel": 0
+            }
+        ]
     }
 }

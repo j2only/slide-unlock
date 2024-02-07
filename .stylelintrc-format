@@ -2,12 +2,12 @@
     "extends": [
         "stylelint-config-standard-scss",
         "stylelint-config-html",
-        "stylelint-config-recommended-vue",
-        "stylelint-config-property-sort-order-smacss"
+        "stylelint-config-recommended-vue"
     ],
     "plugins": [
         "stylelint-scss",
-        "stylelint-order"
+        "stylelint-order",
+        "@stylistic/stylelint-plugin"
     ],
     "overrides": [
         {
@@ -22,6 +22,7 @@
         "at-rule-empty-line-before": "never",
         "at-rule-no-unknown": null,
         "color-no-invalid-hex": true,
+        "color-function-notation": "modern",
         "no-descending-specificity": null,
         "selector-type-no-unknown": [
             true,
@@ -32,6 +33,13 @@
             }
         ],
         "scss/selector-no-redundant-nesting-selector": true,
+        "@stylistic/indentation": [
+            4,
+            {
+                "baseIndentLevel": 0
+            }
+        ],
+        "@stylistic/color-hex-case": "lower",
         "order/order": [
             "declarations",
             {
