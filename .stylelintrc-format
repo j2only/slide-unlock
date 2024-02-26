@@ -1,11 +1,9 @@
 {
     "extends": [
-        "stylelint-config-standard-scss",
-        "stylelint-config-html",
-        "stylelint-config-recommended-vue"
+        "stylelint-config-recommended-scss",
+        "stylelint-config-recommended-vue/scss"
     ],
     "plugins": [
-        "stylelint-scss",
         "stylelint-order",
         "@stylistic/stylelint-plugin"
     ],
