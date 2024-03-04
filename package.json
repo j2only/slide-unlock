@@ -1,6 +1,6 @@
 {
     "name": "@j2only/slide-unlock",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "type": "module",
     "description": "Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": "Anton Zolotov <antonzolotov@outlook.com>",
@@ -37,18 +37,18 @@
     "dependencies": {
         "easy-ease": "^1.0.9",
         "lodash.debounce": "^4.0.8",
-        "vue": "^3.4.20"
+        "vue": "^3.4.21"
     },
     "devDependencies": {
-        "@babel/plugin-transform-runtime": "^7.23.9",
+        "@babel/plugin-transform-runtime": "^7.24.0",
         "@babel/preset-typescript": "^7.23.3",
-        "@cypress/code-coverage": "^3.12.24",
+        "@cypress/code-coverage": "^3.12.26",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@stylistic/stylelint-plugin": "^2.1.0",
         "@types/babel__plugin-transform-runtime": "^7.9.5",
-        "@types/eslint": "^8.56.3",
+        "@types/eslint": "^8.56.5",
         "@types/lodash.debounce": "^4.0.9",
-        "@types/node": "^20.11.20",
+        "@types/node": "^20.11.24",
         "@vitejs/plugin-vue": "^5.0.4",
         "@vitest/coverage-istanbul": "^1.3.1",
         "@vue/eslint-config-standard": "^8.0.1",

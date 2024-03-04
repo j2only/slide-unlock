@@ -163,11 +163,16 @@ export default defineComponent({
 
         const slideMoving = (e: unknown) => {
             if (Slider.CanMove && !Slider.IsComplete) {
+                let pageX = Slider.StartPositionWindow
                 if (window.TouchEvent && e instanceof TouchEvent && e.touches)
-                    Slider.HandlerPosition = (e.touches[0].pageX) - Slider.StartPositionWindow
-
+                    pageX = e.touches[0].pageX
                 else if (e instanceof MouseEvent)
-                    Slider.HandlerPosition = (e.pageX) - Slider.StartPositionWindow
+                    pageX = e.pageX
+
+                if (pageX < Slider.StartPositionWindow)
+                    return
+                else
+                    Slider.HandlerPosition = pageX - Slider.StartPositionWindow
 
                 if (Slider.HandlerPosition > 0 && Slider.HandlerPosition <= (sliderWidth.value - props.height)) {
                     Slider.ProgressWidth = (Slider.HandlerPosition + props.height / 2)
@@ -183,13 +188,15 @@ export default defineComponent({
 
         const slideFinish = (e: unknown) => {
             if (Slider.CanMove && !Slider.IsComplete) {
+                let pageX = Slider.StartPositionWindow
                 if (window.TouchEvent && e instanceof TouchEvent && e.touches)
-                    Slider.HandlerPosition = (e.changedTouches[0].pageX) - Slider.StartPositionWindow
-
+                    pageX = e.changedTouches[0].pageX
                 else if (e instanceof MouseEvent)
-                    Slider.HandlerPosition = (e.pageX) - Slider.StartPositionWindow
+                    pageX = e.pageX
 
-                if (Slider.HandlerPosition < (sliderWidth.value - props.height)) {
+                if (pageX < Slider.StartPositionWindow)
+                    return
+                else if (Slider.HandlerPosition < (sliderWidth.value - props.height)) {
                     ease({
                         startValue: Slider.HandlerPosition,
                         endValue: 0,
