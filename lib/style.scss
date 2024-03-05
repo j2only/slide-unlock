@@ -15,6 +15,7 @@
     padding: var(--su-size-padding);
     background-color: var(--su-color-bg);
     text-align: center;
+    overflow: hidden;
     &::after {
         content: "";
         position: absolute;
@@ -25,6 +26,7 @@
         transition: none;
         animation: shine 4s infinite;
         background-color: rgb(255 255 255 / 40%);
+        overflow: hidden;
     }
     .slideunlock-progressbar {
         position: absolute;
@@ -66,6 +68,7 @@
         background: var(--su-color-handler-bg) var(--su-icon-handler) no-repeat center;
         background-size: 2rem;
         cursor: grab;
+        overflow: hidden;
         &:active {
             transform: scale(1.05);
             cursor: grabbing;

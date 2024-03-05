@@ -20,13 +20,13 @@ You can check a [DEMO HERE](https://j2only.github.io/vue-slide-unlock/)
 Install this component via package manager:
 
 ```bash
-yarn add @jsonly/slide-unlock
+yarn add @j2only/slide-unlock
 ```
 
 or
 
 ```shell
-npm install --save @jsonly/slide-unlock
+npm install --save @j2only/slide-unlock
 ```
 
 [![https://nodei.co/npm/@j2only/slide-unlock.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/@j2only/slide-unlock.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@j2only/slide-unlock)
