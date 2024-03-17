@@ -73,6 +73,7 @@ As you can see, the component accepts some props:
 | noanimate   | Boolean | false             | Disable css animations (but not css transitions)                      |
 | width       | Number  | 400               | Width of element (ignored if autoWidth is true)                       |
 | height      | Number  | 60                | Height of element                                                     |
+| position    | Number  | 0                 | Progress percent (to emulate sliding)                                 |
 | text        | String  | "slide to unlock" | Text on element                                                       |
 | successText | String  | "success"         | Text on element when slide is completed                               |
 | name        | String  | "slideunlock"     | Unique ID, in case of using several components on one page            |
