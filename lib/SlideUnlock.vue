@@ -71,6 +71,10 @@ export default defineComponent({
         name: {
             type: String,
             default: "slideunlock"
+        },
+        position: {
+            type: Number,
+            default: 0
         }
     },
     setup(props, { emit }) {
@@ -134,9 +138,10 @@ export default defineComponent({
                 Slider.ProgressWidth = sliderWidth.value
         })
 
-        const fadeText = debounce(function() {
+        const fadeText = debounce(function(force: boolean = false) {
             const ReversePercent = ((sliderWidth.value - props.height) * (100 / Slider.HandlerPosition)) / 1000 - 0.1
-            if (Slider.CanMove) Slider.TextOpacity = ReversePercent
+            if (Slider.CanMove || force)
+                Slider.TextOpacity = ReversePercent
         }, 5)
 
         const slideStart = (e: MouseEvent | TouchEvent) => {
@@ -211,6 +216,22 @@ export default defineComponent({
                 Slider.CanMove = false
             }
         }
+
+        const emulateSlideFromProps = (pos: number) => {
+            if (typeof (pos) !== "number" || pos < 0 || Slider.IsComplete || props.disabled)
+                return
+
+            const computedPosition = Math.round(((sliderWidth.value - props.height) / 100) * pos)
+            Slider.ProgressWidth = computedPosition + (props.height / 2)
+            Slider.HandlerPosition = computedPosition
+            fadeText(true)
+            if (computedPosition >= sliderWidth.value - props.height)
+                complete()
+        }
+
+        watch(() => props.position, () => {
+            emulateSlideFromProps(props.position)
+        })
 
         const passVerify = () => {
             Slider.IsComplete = true

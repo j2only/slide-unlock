@@ -41,6 +41,7 @@
                     :noanimate="isNoAnimate"
                     :width="width"
                     :height="height"
+                    :position="parseInt(position, 10)"
                     :text="text"
                     :success-text="successText"
                     :handler-icon="handlerIcon"
@@ -111,6 +112,10 @@
                     <div class="item">
                         <label>successText</label>
                         <input v-model="successText" type="text">
+                    </div>
+                    <div class="item">
+                        <label>position</label>
+                        <input v-model="position" type="range" min="0" max="100">
                     </div>
                 </div>
             </section>
@@ -206,6 +211,7 @@ const text = ref("slide to unlock")
 const successText = ref("success")
 const width = ref(400)
 const height = ref(80)
+const position = ref("0")
 
 const tSize = ref("")
 const pSize = ref("")
