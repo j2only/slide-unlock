@@ -1,6 +1,6 @@
 # vue-slide-unlock
 
- ![npm publish](https://github.com/j2only/vue-slide-unlock/actions/workflows/npm.yml/badge.svg) [![npm](https://img.shields.io/npm/v/@j2only/slide-unlock.svg)](https://www.npmjs.com/package/@j2only/slide-unlock) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/%40j2only/slide-unlock) ![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/j2only/vue-slide-unlock) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/j2only/vue-slide-unlock/issues) ![GitHub](https://img.shields.io/github/license/j2only/vue-slide-unlock)
+ ![npm publish](https://github.com/j2only/vue-slide-unlock/actions/workflows/npm.yml/badge.svg) [![npm](https://img.shields.io/npm/v/@j2only/slide-unlock.svg)](https://www.npmjs.com/package/@j2only/slide-unlock) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/%40j2only/slide-unlock) ![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/j2only/vue-slide-unlock) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/j2only/vue-slide-unlock/issues)
 
 Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.
 Written entirely on Vue 3 Composition API with Typescript and Vite. Coated with tests using Cypress. Compatible only with Vue.js 3.x.
@@ -73,6 +73,7 @@ As you can see, the component accepts some props:
 | noanimate   | Boolean | false             | Disable css animations (but not css transitions)                      |
 | width       | Number  | 400               | Width of element (ignored if autoWidth is true)                       |
 | height      | Number  | 60                | Height of element                                                     |
+| position    | Number  | 0                 | Progress percent (to emulate sliding)                                 |
 | text        | String  | "slide to unlock" | Text on element                                                       |
 | successText | String  | "success"         | Text on element when slide is completed                               |
 | name        | String  | "slideunlock"     | Unique ID, in case of using several components on one page            |
@@ -91,10 +92,12 @@ Also, you can customize some styles via CSS Variables:
 | --su-color-handler-bg           | #FFFFFF | Color of handler                                 |
 | --su-icon-handler               | base64  | Icon of handler                                  |
 
-## Event
+## Events
 
 ```javascript
-this.$emit("completed")
+<template>
+    <slide-unlock ... @completed="alert('Unlocked!')" />
+</template>
 ```
 
 Emitted when pass verify, the handler swiped to the right side.
@@ -124,9 +127,7 @@ const resetComponent = () => {
 If you want to get the сompleted state of a component, you need to call the "complete" method
 
 ```javascript
-const vueSlideUnlockRef = ref()
-
-const resetComponent = () => {
+const unlockComponent = () => {
     vueSlideUnlockRef.value.complete()
 }
 ```
