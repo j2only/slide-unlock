@@ -225,8 +225,10 @@ export default defineComponent({
             Slider.ProgressWidth = computedPosition + (props.height / 2)
             Slider.HandlerPosition = computedPosition
             fadeText(true)
-            if (computedPosition >= sliderWidth.value - props.height)
-                complete()
+            if (computedPosition >= sliderWidth.value - props.height) {
+                complete();
+                passVerify();
+            }
         }
 
         watch(() => props.position, () => {
