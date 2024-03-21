@@ -1,6 +1,6 @@
 {
     "name": "@j2only/slide-unlock",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "type": "module",
     "description": "Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.",
     "author": "Anton Zolotov <antonzolotov@outlook.com>",
