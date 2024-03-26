@@ -5,5 +5,5 @@ import { defineConfig } from "vite"
 // demo build config
 export default defineConfig({
     plugins: [vue()],
-    base: "/vue-slide-unlock/"
+    base: "/slide-unlock/"
 })

@@ -19,10 +19,10 @@ export default defineConfig({
         lib: {
             entry: resolve(__dirname, "lib/index.ts"),
             // Name of the library.
-            name: "vue-pincode",
+            name: "slide-unlock",
             // We are building for CJS and ESM, use a function to rename automatically files.
             // Example: my-component-library.esm.js
-            fileName: (format) => `${"vue-slide-unlock"}.${format}.js`
+            fileName: (format) => `${"slide-unlock"}.${format}.js`
         },
         rollupOptions: {
             // Vue is provided by the parent project, don't compile Vue source-code inside our library.

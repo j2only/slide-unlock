@@ -1,11 +1,11 @@
-# vue-slide-unlock
+# @j2only/slide-unlock
 
- ![npm publish](https://github.com/j2only/vue-slide-unlock/actions/workflows/npm.yml/badge.svg) [![npm](https://img.shields.io/npm/v/@j2only/slide-unlock.svg)](https://www.npmjs.com/package/@j2only/slide-unlock) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/%40j2only/slide-unlock) ![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/j2only/vue-slide-unlock) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/j2only/vue-slide-unlock/issues)
+ ![npm publish](https://github.com/j2only/slide-unlock/actions/workflows/npm.yml/badge.svg) [![npm](https://img.shields.io/npm/v/@j2only/slide-unlock.svg)](https://www.npmjs.com/package/@j2only/slide-unlock) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/%40j2only/slide-unlock) ![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/j2only/slide-unlock) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/j2only/slide-unlock/issues)
 
 Vue.js slide to unlock component. Protect users from accidental clicks or protect your web app from bot attack.
 Written entirely on Vue 3 Composition API with Typescript and Vite. Coated with tests using Cypress. Compatible only with Vue.js 3.x.
 
-You can check a [DEMO HERE](https://j2only.github.io/vue-slide-unlock/)
+You can check a [DEMO HERE](https://j2only.github.io/slide-unlock/)
 
 ![Preview](preview.gif)
 
@@ -53,7 +53,7 @@ Import the component in your app and pass some settings:
 </template>
 
 <script>
-import SlideUnlock from "vue-slide-unlock"
+import SlideUnlock from "@j2only/slide-unlock"
 
 export default {
     components: {
