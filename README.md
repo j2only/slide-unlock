@@ -41,8 +41,6 @@ Import the component in your app and pass some settings:
         ref="vueslideunlock"
         :auto-width="true"
         :circle="true"
-        :disabled="false"
-        :noanimate="false"
         :width="400"
         :height="60"
         text="slide to unlock"
