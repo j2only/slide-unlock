@@ -22,7 +22,7 @@ export default defineConfig({
             name: "vue-pincode",
             // We are building for CJS and ESM, use a function to rename automatically files.
             // Example: my-component-library.esm.js
-            fileName: (format) => `${"vue-slide-unlock"}.${format}.js`
+            fileName: (format) => `${"slide-unlock"}.${format}.js`
         },
         rollupOptions: {
             // Vue is provided by the parent project, don't compile Vue source-code inside our library.

@@ -1,5 +1,5 @@
 // cypress.config.ts
-import coverage from '@cypress/code-coverage/task'
+import coverage from "@cypress/code-coverage/task"
 import { defineConfig } from "cypress"
 
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
             ]
         }
     },
-    projectId: "vue-slide-unlock",
+    projectId: "slide-unlock",
     component: {
         video: true,
         experimentalMemoryManagement: true,
@@ -23,5 +23,5 @@ export default defineConfig({
             coverage(on, config)
             return config
         }
-    },
+    }
 })

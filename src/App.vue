@@ -5,11 +5,11 @@
             <div class="container">
                 <div>
                     <img alt="Vite logo" src="/vite.svg">
-                    <h4>vue-slide-unlock</h4>
+                    <h4>@j2only/slide-unlock</h4>
                     <span class="version">[{{ cVersion }}]</span>
                 </div>
                 <div>
-                    <a class="nav-item" href="https://github.com/j2only/vue-slide-unlock" title="Github" target="_blank">
+                    <a class="nav-item" href="https://github.com/j2only/slide-unlock" title="Github" target="_blank">
                         Documentation
                     </a>
                     <a class="nav-item" href="https://github.com/j2only" title="Github" target="_blank">
