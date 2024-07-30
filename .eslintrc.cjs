@@ -39,6 +39,7 @@ module.exports = {
 
         "array-bracket-spacing": ["error", "never"],
         "vue/array-bracket-spacing": ["error", "never"],
+        curly: ["error", "multi-or-nest"],
         "object-curly-spacing": ["error", "always"],
         "vue/object-curly-spacing": ["error", "always"],
         "block-spacing": ["error", "always"],
@@ -133,8 +134,8 @@ module.exports = {
         },
         {
             files: [
-                "./src/App.vue",
-                "./src/components/SlideUnlock.vue"
+                "./lib/SlideUnlock.vue",
+                "./src/App.vue"
             ],
             rules: {
                 "max-len": 0

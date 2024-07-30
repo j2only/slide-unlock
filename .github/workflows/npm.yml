@@ -5,15 +5,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install dependencies and build 🔧
-        run: yarn && yarn build
+
+      - name: Enable Corepack for Yarn 4
+        run: |
+          corepack enable
+
+      - name: Install 💻
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: Build 🔧
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+
       - name: Publish package on NPM 📦
-        run: npm publish
+        run: npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

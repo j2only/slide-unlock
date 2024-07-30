@@ -1,18 +1,16 @@
 {
     "extends": [
-        "stylelint-config-standard-scss",
-        "stylelint-config-html",
-        "stylelint-config-recommended-vue"
+        "stylelint-config-recommended-scss",
+        "stylelint-config-recommended-vue/scss"
     ],
     "plugins": [
-        "stylelint-scss"
+        "@stylistic/stylelint-plugin"
     ],
     "rules": {
-        "indentation": 4,
         "rule-empty-line-before": null,
         "at-rule-empty-line-before": null,
         "at-rule-no-unknown": null,
-        "color-hex-case": null,
+        "color-no-invalid-hex": true,
         "no-descending-specificity": null,
         "selector-type-no-unknown": [
             true,
@@ -22,6 +20,12 @@
                 ]
             }
         ],
-        "scss/selector-no-redundant-nesting-selector": true
+        "scss/selector-no-redundant-nesting-selector": true,
+        "@stylistic/indentation": [
+            4,
+            {
+                "baseIndentLevel": 0
+            }
+        ]
     }
 }

@@ -1,9 +1,20 @@
 // cypress.config.ts
+import coverage from "@cypress/code-coverage/task"
 import { defineConfig } from "cypress"
-import coverage from '@cypress/code-coverage/task'
 
 export default defineConfig({
+    env: {
+        codeCoverage: {
+            excludeSpecPattern: [
+                "*.cy.ts",
+                "*.spec.ts"
+            ]
+        }
+    },
+    projectId: "slide-unlock",
     component: {
+        video: true,
+        experimentalMemoryManagement: true,
         devServer: {
             framework: "vue",
             bundler: "vite"
@@ -12,5 +23,5 @@ export default defineConfig({
             coverage(on, config)
             return config
         }
-    },
+    }
 })
