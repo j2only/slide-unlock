@@ -90,7 +90,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "packageManager": "yarn@4.1.1",
+    "packageManager": "yarn@4.3.1",
     "license": "MIT",
     "homepage": "https://j2only.github.io/slide-unlock/",
     "repository": {
