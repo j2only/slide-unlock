@@ -226,8 +226,8 @@ export default defineComponent({
             Slider.HandlerPosition = computedPosition
             fadeText(true)
             if (computedPosition >= sliderWidth.value - props.height) {
-                complete();
-                passVerify();
+                complete()
+                passVerify()
             }
         }
 
