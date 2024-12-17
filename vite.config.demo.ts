@@ -5,5 +5,6 @@ import { defineConfig } from "vite"
 // demo build config
 export default defineConfig({
     plugins: [vue()],
-    base: "/slide-unlock/"
+    base: "/slide-unlock/",
+    css: { preprocessorOptions: { scss: { api: "modern-compiler" } } }
 })
